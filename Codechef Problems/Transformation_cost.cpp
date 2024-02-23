@@ -3,38 +3,23 @@
 using namespace std;
 int cost(int x)
 {
-  if (x == 0 || x == 1)
-  {
-    return 1;
-  }
-  return 2 * cost(x - 1);
+  return pow(2,x);
 }
-int nine_check(string temp)
-{
-  int flag = 0;
-  for (int i = 0; i < temp.length(); i++)
-  {
-    if (((int)temp[i] - 48) == 1)
-    {
-      bool first_verification = false;
-      bool final_verification = false;
+int nine_check(string temp){
+  for (int i = 0; i < temp.length(); i++){
+    if (((int)temp[i] - 48) == 1&&(((int)temp[i+1]-48)==0)) {
       for (int j = i + 1; j < temp.length(); j++)
       {
-        if (((int)temp[j] - 48) == 0)
+        if (((int)temp[j] - 48) == 1)
         {
-          first_verification = true;
-        }
-        if (first_verification && ((int)temp[j] - 48) == 1)
-        {
-          final_verification = true;
-          flag = 1;
-          return flag;
+          return 1;
         }
       }
     }
   }
-  return flag;
+return 0;
 }
+
 string get_binary(int n)
 {
   stack<int> s;
@@ -77,7 +62,7 @@ int main(void)
         ++x;
         ary_cost = cost(x);
         total_cost = n + ary_cost;
-        cout << total_cost << " " << get_binary(total_cost) << endl;
+        // cout<<total_cost<<" "<<get_binary(total_cost)<<endl;
       }
       cout << ary_cost << endl;
     }
