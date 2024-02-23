@@ -52,15 +52,12 @@ int main(void) {
   // cout << get_binary(t) << endl;
   while (t--) {
     cin >> n;
-    int x;
+    int x=0;
     if (!nine_check(get_binary(n))) {
-      x = 0;
       cout << x << endl;
     } else {
       int ary_cost = cost(x);
-      cout << ary_cost << endl;
       int total_cost = n + ary_cost;
-      cout << total_cost << endl;
       while (nine_check(get_binary(total_cost)) == 1) {
         x++;
         cout << ary_cost << endl;
