@@ -20,22 +20,13 @@ int nine_check(string temp){
 return 0;
 }
 
-string get_binary(int n)
-{
-  stack<int> s;
-  while (n != 1)
-  {
-    s.push(n % 2);
-    n = n / 2;
-  }
-  s.push(1);
-  string binary;
-  while (!s.empty())
-  {
-    binary += s.top() + 48;
-    s.pop();
-  }
-  return binary;
+string get_binary(int n) {
+    string binary;
+    while (n != 0) {
+        binary = to_string(n % 2) + binary;
+        n /= 2;
+    }
+    return binary;
 }
 
 int main(void)
