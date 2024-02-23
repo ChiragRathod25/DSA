@@ -1,3 +1,0 @@
-Hello World.
-Enter in the file.
-end of file.
