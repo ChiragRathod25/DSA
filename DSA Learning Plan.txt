@@ -1,0 +1,51 @@
+=======================================================================
+DSA planning 
+-topic wise practice of question(topic) from leetcode - explore section, gfg question (easy,medium,hard) 
+-priority : 1)Leetcode - topic wise que solve, striver DSA sheet
+	    2)GFG que list for revision and more practice
+-learn theories from gfg, leetcode or from youtube channel
+------------------------------------------------------------------------
+Topic list for DSA roadmap
+------------------------------------------------------------------------
+Basics 
+conditional
+loop
+pattern printing
+function 
+pointer
+basic recursion
+time and space complexity
+------------------------------------------------------------------------
+Array 
+2D Array
+String
+BASIC SORTING- Bubble , Insertion , Selection
+SEARCHING-Linear search , Binary Search
+------------------------------------------------------------------------
+Recursion 
+Backtracking(optional)
+Advance Sorting- Merge Sort , Quick sort etc;
+Prefix Sum 
+Sliding Window
+Math problems
+------------------------------------------------------------------------
+OOPs
+Linked List
+Stack
+Queue
+Maps  ,Sets STL
+Binary Trees 
+Binary search trees
+Heaps
+------------------------------------------------------------------------
+Advance Data structure
+Greedy Algorithm
+Backtracking Algorithm
+Recursion
+Dynamic Programming
+------------------------------------------------------------------------
+Graphs
+Tries
+Generic trees
+Segment trees
+
