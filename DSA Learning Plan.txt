@@ -1,9 +1,12 @@
 =======================================================================
 DSA planning 
 -topic wise practice of question(topic) from leetcode - explore section, gfg question (easy,medium,hard) 
--priority : 1)Leetcode - topic wise que solve, striver DSA sheet
-	    2)GFG que list for revision and more practice
+-priority : 1)Leetcode - topic wise que solve, 
+	    2)striver DSA sheet
+	    3)GFG que list for revision and more practice
 -learn theories from gfg, leetcode or from youtube channel
+------------------------------------------------------------------------
+3 Months DSA roadmap : https://whimsical.com/3-months-dsa-roadmap-WSohgysgPm5YzdhSBnfK4E
 ------------------------------------------------------------------------
 Topic list for DSA roadmap
 ------------------------------------------------------------------------
@@ -48,4 +51,6 @@ Graphs
 Tries
 Generic trees
 Segment trees
+------------------------------------------------------------------------
+
 
