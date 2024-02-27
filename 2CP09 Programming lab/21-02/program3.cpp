@@ -21,6 +21,7 @@ int main(void){
             s2.insert(*itr);
         }
     }
+    //printing unique string
    for (auto& str : s2) {
         std::cout << str << ' ';
     }

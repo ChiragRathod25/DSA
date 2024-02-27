@@ -21,7 +21,7 @@ int main()
     {
         cout << "Enter string to search :";
         cin >> temp;
-        // set<string> ::iterator it;
+        // set<string>   ::iterator it;
         auto it = s.find(temp);
         if (it != s.end())
         {
@@ -30,6 +30,5 @@ int main()
         else
             cout << "No" << endl;
     }
-
     return 0;
 }
