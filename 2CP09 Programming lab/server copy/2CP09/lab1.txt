@@ -1,0 +1,6 @@
+Aim:-Dynamic  memory  allocation  for  one  dimensional  and  two  dimensional array. Make following functions.
+
+A. Implement  function  findmax  which  find  maximum  number  and position from the given one dimensional arrayb.
+
+B. Implement  function  which  take  two  dimensional  array  consists  of  n city temperature for seven days. 
+Find maximum temperature as well as city and day on which maximum temperature found

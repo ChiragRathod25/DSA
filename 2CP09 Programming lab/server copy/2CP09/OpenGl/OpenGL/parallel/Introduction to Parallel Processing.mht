@@ -1,0 +1,302 @@
+From: "Saved by Windows Internet Explorer 8"
+Subject: Introduction to Parallel Processing
+Date: Wed, 21 Dec 2011 17:15:31 +0530
+MIME-Version: 1.0
+Content-Type: text/html;
+	charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.nbcs.rutgers.edu/hpc/parallel/index.htm
+X-MimeOLE: Produced By Microsoft MimeOLE V6.1.7600.16807
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Introduction to Parallel Processing</TITLE>
+<META content=3D"text/html; charset=3Dwindows-1252" =
+http-equiv=3DContent-Type>
+<META http-equiv=3DContext-Type =
+CONTEXT=3D"text/html;charset=3Dwindows-1252">
+<META name=3DGENERATOR content=3D"MSHTML 8.00.7600.16853"></HEAD>
+<BODY>
+<CENTER>
+<H1>Introduction to Parallel Processing</H1>
+<H4>6/7/97</H4><BR>
+<H2><A =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld001.htm">Click here =
+to=20
+start</A> </H2><BR></CENTER>
+<CENTER>
+<TABLE width=3D"90%">
+  <TBODY>
+  <TR>
+    <TD vAlign=3Dtop width=3D"50%" align=3Dleft>
+      <H3><U>Table of Contents</U></H3>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld001.htm">Introduction=
+ to=20
+      Parallel Processing</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld002.htm">Overview =
+and=20
+      Goals of Parallel Processing </A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld003.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld004.htm">Scalable=20
+      parallel</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld005.htm">Efficiency=20
+      Curve</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld006.htm">Goals =
+of=20
+      Parallel Computing </A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld007.htm">Why =
+Use=20
+      Parallel Processing to Reach These Goals? </A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld008.htm">Taxonomy of =
+
+      Architectures</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld009.htm">Single=20
+      Instruction, Single Data (SISD)</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld010.htm">Multiple=20
+      Instruction, Single Data (MISD) Here for completeness only</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld011.htm">Single=20
+      Instruction, Multiple Data (SIMD)</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld012.htm">Single=20
+      Instruction, Multiple Data (SIMD) </A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld013.htm">Single=20
+      Instruction, Multiple Data (SIMD)</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld014.htm">MIMD =
+(Multiple=20
+      Instruction, Multiple Data)</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld015.htm">MIMD =
+(Multiple=20
+      Instruction, Multiple Data)</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld016.htm">MIMD =
+(Multiple=20
+      Instruction, Multiple Data)</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld017.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld018.htm">Terminology =
+of=20
+      Parallelism</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld019.htm">Synchronizat=
+ion</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld020.htm">Observed=20
+      Speedup</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld021.htm">Latency and =
+
+      Bandwidth</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld022.htm">Parallel=20
+      Overhead</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld023.htm">Granularity<=
+/A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld024.htm">Course vs. =
+Fine=20
+      Graining</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld025.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld026.htm">SPMD</A></P>=
+
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld027.htm">MIMD =
+and=20
+      SPMD</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld028.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld029.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld030.htm">Distributed =
+
+      memory machines</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld031.htm">Communicatio=
+n -=20
+      Message Passing</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld032.htm">Message=20
+      Passing</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld033.htm">Message=20
+      Passing</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld034.htm">Message=20
+      Passing</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld035.htm">Dependency=20
+      Analysis</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld036.htm">Domain=20
+      Decomposition</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld037.htm">Granularity<=
+/A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld038.htm">Granularity<=
+/A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld039.htm">Two =
+methods of=20
+      Decomposition</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld040.htm">Functional=20
+      Parallism</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld041.htm">Functional=20
+      Parallelism</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld042.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld043.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld044.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld045.htm">Data=20
+      Parallelism</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld046.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld047.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld048.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld049.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld050.htm">When =
+to Use=20
+      Data Parallelism</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld051.htm">Costs =
+of=20
+      Parallel Processing</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld052.htm">Converting =
+From=20
+      Serial to Parallel Execution</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld053.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld054.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld055.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld056.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld057.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld058.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld059.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld060.htm">I/O</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld061.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld062.htm">PPT=20
+      Slide</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld063.htm">Newark=20
+      SRAC</A></P>
+      <P align=3Dleft><A=20
+      href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld064.htm">New =
+Brunswick=20
+      SRAC </A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld065.htm">Supercomputi=
+ng=20
+      Resources</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld066.htm">NCSA</A></P>=
+
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld067.htm">Starter =
+Grants=20
+      at NCSA</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld068.htm">Starter =
+Grants=20
+      at SDSC</A></P>
+      <P align=3Dleft><A=20
+      =
+href=3D"http://www.nbcs.rutgers.edu/hpc/parallel/sld069.htm">Addition=20
+      Information on Parallel Computing </A></P></TD>
+    <TD vAlign=3Dtop width=3D"50%"><STRONG>Author: </STRONG>Janet Salowe =
+
+      <P><STRONG>Email: </STRONG><A=20
+      =
+href=3D"mailto:salowe@nbcs.rutgers.edu">salowe@nbcs.rutgers.edu</A>=20
+  </P></TD></TR></TBODY></TABLE></CENTER></BODY></HTML>

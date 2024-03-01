@@ -1,0 +1,857 @@
+From: "Saved by Windows Internet Explorer 8"
+Subject: Introduction to Parallel Computing
+Date: Wed, 21 Dec 2011 17:43:20 +0530
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0000_01CCC008.07444DD0"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.1.7600.16807
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0000_01CCC008.07444DD0
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www-users.cs.umn.edu/~karypis/parbook/
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Introduction to Parallel Computing</TITLE>
+<META content=3D"text/html; charset=3Diso-8859-1" =
+http-equiv=3DContent-Type>
+<META name=3DGENERATOR content=3D"MSHTML 8.00.7600.16853"></HEAD>
+<BODY>
+<H1>Introduction to Parallel Computing. </H1>
+<TABLE style=3D"BORDER-COLLAPSE: collapse" id=3DAutoNumber1 border=3D0=20
+borderColor=3D#111111 width=3D"95%">
+  <TBODY>
+  <TR>
+    <TD width=3D"33%">
+      <P align=3Dcenter><A=20
+      =
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Images/bcover.jpg"><=
+IMG=20
+      border=3D0 alt=3D"Intro to Parallel"=20
+      =
+src=3D"http://www-users.cs.umn.edu/~karypis/parbook/Images/bcover2.jpg"=20
+      width=3D230 height=3D304></A></P></TD>
+    <TD vAlign=3Dtop width=3D"67%"><STRONG>Ananth Grama, Purdue =
+University, W.=20
+      Lafayette, IN 47906 <A=20
+      href=3D"mailto:(ayg@cs.purdue.edu">(ayg@cs.purdue.edu</A>) =
+</STRONG>
+      <P><STRONG>Anshul Gupta, IBM T.J. Watson Research Center, Yorktown =
+
+      Heights, NY 10598 <A=20
+      href=3D"mailto:(anshul@watson.ibm.com">(anshul@watson.ibm.com</A>) =
+
+      </STRONG></P>
+      <P><STRONG>George Karypis, University of Minnesota, Minneapolis, =
+MN 55455=20
+      <A href=3D"mailto:(karypis@cs.umn.edu">(karypis@cs.umn.edu</A>)=20
+</STRONG></P>
+      <P><STRONG>Vipin Kumar, University of Minnesota, Minneapolis, MN =
+55455 <A=20
+      href=3D"mailto:(kumar@cs.umn.edu">(kumar@cs.umn.edu</A>) =
+</STRONG></P>
+      <P><FONT color=3D#ff0000>Follow this </FONT><A=20
+      =
+href=3D"http://csdl2.computer.org/comp/mags/ds/2004/07/o7005.pdf"><FONT=20
+      color=3D#ff0000>link</FONT></A><FONT color=3D#ff0000> for a recent =
+review of=20
+      the book published at IEEE Distributed Systems Online.=20
+  </FONT></P></TD></TR></TBODY></TABLE><STRONG><BR></STRONG>
+<HR>
+
+<H2>Solutions to Selected Problems</H2>
+<P>The solutions are password protected and are only available to =
+lecturers at=20
+academic institutions. </P>
+<P><A href=3D"http://www.booksites.net/register">Click here</A> to apply =
+for a=20
+password.</P>
+<P><A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Solution/solution.pd=
+f">Click=20
+here</A> to download the solutions (PDF File).</P>
+<HR>
+
+<H1>Table of Contents (<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Misc/toc.pdf">PDF=20
+file</A>)</H1><FONT face=3DArial,Helvetica>
+<H3>PART I: BASIC CONCEPTS </H3>
+<P>1. Introduction (figures: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap1.pdf">P=
+DF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap1.ps">PS=
+</A>])</P>
+<UL>
+  <LI>Motivating Parallelism=20
+  <LI>Scope of Parallel Computing=20
+  <LI>Organization and Contents of the Text </LI></UL>
+<P>2. Parallel Programming Platforms (figures: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap2.ppt">P=
+PT</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap2.pdf">P=
+DF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap2.ps">PS=
+</A>])=20
+<BR>&nbsp;&nbsp;&nbsp; (GK lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/GK-CS5451/C=
+hapter%202%20-%20Parallel%20Programming%20Platforms.pdf">PDF</A>])=20
+(AG lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap2_sl=
+ides.ppt">PPT</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap2_sl=
+ides.pdf">PDF</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap2_sl=
+ides.ps">PS</A>])=20
+</P>
+<UL>
+  <LI>Implicit Parallelism: Trends in Microprocessor Architectures=20
+  <LI>Limitations of Memory System Performance=20
+  <LI>Dichotomy of Parallel Computing Platforms=20
+  <LI>Physical Organization of Parallel Platforms=20
+  <LI>Communication Costs in Parallel Machines=20
+  <LI>Routing Mechanisms for Interconnection Networks
+  <LI>Impact of Process-Processor Mapping and Mapping Techniques
+  <LI>Bibliographic Remarks </LI></UL>
+<P>3. Principles of Parallel Algorithm Design (figures: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap3.ppt">P=
+PT</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap3.pdf">P=
+DF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap3.ps">PS=
+</A>],=20
+algorithms: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Algorithms/pchap3.pd=
+f">PDF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Algorithms/pchap3.ps=
+">PS</A>])=20
+<BR>&nbsp;&nbsp;&nbsp; (GK lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/GK-CS5451/C=
+hapter%203%20-%20Principles%20of%20Parallel%20Algorithm%20Design.pdf">PDF=
+</A>])=20
+(AG lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap3_sl=
+ides.ppt">PPT</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap3_sl=
+ides.pdf">PDF</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap3_sl=
+ides.ps">PS</A>])=20
+</P>
+<UL>
+  <LI>Preliminaries
+  <LI>Decomposition Techniques=20
+  <LI>Characteristics of Tasks and Interactions=20
+  <LI>Mapping Techniques for Load Balancing=20
+  <LI>Methods for Containing Interaction Overheads=20
+  <LI>Parallel Algorithm Models=20
+  <LI>Bibliographic Remarks </LI></UL>
+<P>4. Basic Communication Operations (figures: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap4.ppt">P=
+PT</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap4.pdf">P=
+DF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap4.ps">PS=
+</A>],=20
+algorithms: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Algorithms/pchap4.pd=
+f">PDF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Algorithms/pchap4.ps=
+">PS</A>])=20
+<BR>&nbsp;&nbsp;&nbsp; (GK lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/GK-CS5451/C=
+hapter%204%20-%20Basic%20Communication%20Operations.pdf">PDF</A>])=20
+(AG lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap4_sl=
+ides.ppt">PPT</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap4_sl=
+ides.pdf">PDF</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap4_sl=
+ides.ps">PS</A>])=20
+</P>
+<UL>
+  <LI>One-to-All Broadcast and All-to-One Reduction
+  <LI>All-to-All Broadcast and Reduction
+  <LI>All-Reduce and Prefix-Sum Operations
+  <LI>Scatter and Gather
+  <LI>All-to-All Personalized Communication
+  <LI>Circular Shift
+  <LI>Improving the Speed of Some Communication Operations
+  <LI>Summary
+  <LI>Bibliographic Remarks </LI></UL>
+<P>5. Analytical Modeling of Parallel Programs (figures: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap5.ppt">P=
+PT</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap5.pdf">P=
+DF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap5.ps">PS=
+</A>])=20
+<BR>&nbsp;&nbsp;&nbsp; (GK lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/GK-CS5451/C=
+hapter%205%20-%20Analytical%20Modeling%20of%20Parallel%20Algorithms.pdf">=
+PDF</A>])=20
+(AG lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap5_sl=
+ides.ppt">PPT</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap5_sl=
+ides.pdf">PDF</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap5_sl=
+ides.ps">PS</A>])=20
+</P>
+<UL>
+  <LI>Sources of Overhead in Parallel Programs
+  <LI>Performance Metrics for Parallel Systems=20
+  <LI>Effect of Granularity and Data Mapping on Performance=20
+  <LI>Scalability of Parallel Systems=20
+  <LI>Minimum Execution Time and Minimum Cost-Optimal Execution Time=20
+  <LI>Asymptotic Analysis of Parallel Programs
+  <LI>Other Scalability Metrics
+  <LI>Bibliographic Remarks </LI></UL>
+<H3>PART II: PARALLEL PROGRAMMING </H3>
+<P>6. Programming Using the Message Passing Paradigm (figures: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap6.ppt">P=
+PT</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap6.pdf">P=
+DF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap6.ps">PS=
+</A>])=20
+<BR>&nbsp;&nbsp;&nbsp; (GK lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/GK-CS5451/C=
+hapter%206%20-%20Programming%20Using%20the%20Message%20Passing%20Interfac=
+e.pdf">PDF</A>])=20
+(AG lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap6_sl=
+ides.ppt">PPT</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap6_sl=
+ides.pdf">PDF</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap6_sl=
+ides.ps">PS</A>])=20
+</P>
+<UL>
+  <LI>Principles of Message-Passing Programming
+  <LI>The Building Blocks: Send and Receive Operations
+  <LI>MPI: The Message Passing Interface
+  <LI>Topologies and Embedding=20
+  <LI>Overlapping Communication with Computation=20
+  <LI>Collective Communication and Computation Operations=20
+  <LI>Groups and Communicators=20
+  <LI>Bibliographic Remarks </LI></UL>
+<P>7. Programming Shared Address Space Platforms (figures: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap7.ppt">P=
+PT</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap7.pdf">P=
+DF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap7.ps">PS=
+</A>])=20
+<BR>&nbsp;&nbsp;&nbsp; (GK lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/GK-CS5451/C=
+hapter%207%20-%20Programming%20Shared%20Address%20Space%20Platforms.pdf">=
+PDF</A>])=20
+(AG lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap7_sl=
+ides.ppt">PPT</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap7_sl=
+ides.pdf">PDF</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap7_sl=
+ides.ps">PS</A>])=20
+<BR>&nbsp;&nbsp;&nbsp; (<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Programs/Pthreads">A=
+ complete=20
+set of Pthread programs</A>)</P>
+<UL>
+  <LI>Thread Basics=20
+  <LI>Why Threads?=20
+  <LI>The POSIX Thread Application Programmer Interface=20
+  <LI>Synchronization Primitives in POSIX=20
+  <LI>Controlling Thread and Synchronization Attributes=20
+  <LI>Thread Cancellation
+  <LI>Composite Synchronization Constructs=20
+  <LI>Tips for Designing Asynchronous Programs=20
+  <LI>OpenMP: A Standard for Directive Based Parallel Programming=20
+  <LI>Bibliographic Remarks </LI></UL>
+<H3>PART III: PARALLEL ALGORITHMS AND APPLICATIONS </H3>
+<P>8. Dense Matrix Algorithms (figures: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap8.ppt">P=
+PT</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap8.pdf">P=
+DF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap8.ps">PS=
+</A>],=20
+algorithms: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Algorithms/pchap8.pd=
+f">PDF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Algorithms/pchap8.ps=
+">PS</A>])=20
+<BR>&nbsp;&nbsp;&nbsp; (GK lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/GK-CS5451/C=
+hapter%208%20-%20Dense%20Matrix%20Algorithms.pdf">PDF</A>])=20
+(AG lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap8_sl=
+ides.ppt">PPT</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap8_sl=
+ides.pdf">PDF</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap8_sl=
+ides.ps">PS</A>])=20
+</P>
+<UL>
+  <LI>Matrix-Vector Multiplication
+  <LI>Matrix-Matrix Multiplication=20
+  <LI>Solving a System of Linear Equations=20
+  <LI>Bibliographic Remarks </LI></UL>
+<P>9. Sorting (figures: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap9.ppt">P=
+PT</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap9.pdf">P=
+DF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap9.ps">PS=
+</A>],=20
+algorithms: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Algorithms/pchap9.pd=
+f">PDF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Algorithms/pchap9.ps=
+">PS</A>])=20
+<BR>&nbsp;&nbsp;&nbsp; (GK lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/GK-CS5451/C=
+hapter%209%20-%20Sorting.pdf">PDF</A>])=20
+(AG lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap9_sl=
+ides.ppt">PPT</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap9_sl=
+ides.pdf">PDF</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap9_sl=
+ides.ps">PS</A>])=20
+</P>
+<UL>
+  <LI>Issues in Sorting on Parallel Computers=20
+  <LI>Sorting Networks=20
+  <LI>Bubble Sort and its Variants=20
+  <LI>Quicksort=20
+  <LI>Bucket and Sample Sort
+  <LI>Other Sorting Algorithms=20
+  <LI>Bibliographic Remarks </LI></UL>
+<P>10. Graph Algorithms (figures: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap10.ppt">=
+PPT</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap10.pdf">=
+PDF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap10.ps">P=
+S</A>],=20
+algorithms: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Algorithms/pchap10.p=
+df">PDF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Algorithms/pchap10.p=
+s">PS</A>])=20
+<BR>&nbsp;&nbsp;&nbsp; (GK lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/GK-CS5451/C=
+hapter%2010%20-%20Graph%20Algorithms.pdf">PDF</A>])=20
+(AG lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap10_s=
+lides.ppt">PPT</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap10_s=
+lides.pdf">PDF</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap10_s=
+lides.ps">PS</A>])=20
+</P>
+<UL>
+  <LI>Definitions and Representation=20
+  <LI>Minimum Spanning Tree: Prim's Algorithm=20
+  <LI>Single-Source Shortest Paths: Dijkstra's Algorithm=20
+  <LI>All-Pairs Shortest Paths=20
+  <LI>Transitive Closure=20
+  <LI>Connected Components=20
+  <LI>Algorithms for Sparse Graphs=20
+  <LI>Bibliographic Remarks </LI></UL>
+<P>11. Search Algorithms for Discrete Optimization Problems (figures: =
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap11.ppt">=
+PPT</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap11.pdf">=
+PDF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap11.ps">P=
+S</A>])=20
+<BR>&nbsp;&nbsp;&nbsp; (GK lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/GK-CS5451/C=
+hapter%2011%20-%20Search%20Algorithms%20for%20Discrete%20Optimization%20P=
+roblems.pdf">PDF</A>])=20
+(AG lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap11_s=
+lides.ppt">PPT</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap11_s=
+lides.pdf">PDF</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap11_s=
+lides.ps">PS</A>])=20
+</P>
+<UL>
+  <LI>Definitions and Examples=20
+  <LI>Sequential Search Algorithms=20
+  <LI>Search Overhead Factor=20
+  <LI>Parallel Depth-First Search=20
+  <LI>Parallel Best-First Search=20
+  <LI>Speedup Anomalies in Parallel Search Algorithms=20
+  <LI>Bibliographic Remarks </LI></UL>
+<P>12. Dynamic Programming (figures: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap12.ppt">=
+PPT</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap12.pdf">=
+PDF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap12.ps">P=
+S</A>])=20
+<BR>&nbsp;&nbsp;&nbsp; (AG lecture slides [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap12_s=
+lides.ppt">PPT</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap12_s=
+lides.pdf">PDF</A>][<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Lectures/AG/chap12_s=
+lides.ps">PS</A>])=20
+</P>
+<UL>
+  <LI>Overview of Dynamic Programming
+  <LI>Serial Monadic DP Formulations=20
+  <LI>Nonserial Monadic DP Formulations=20
+  <LI>Serial Polyadic DP Formulations=20
+  <LI>Nonserial Polyadic DP Formulations=20
+  <LI>Summary and Discussion=20
+  <LI>Bibliographic Remarks </LI></UL>
+<P>13. Fast Fourier Transform&nbsp; (figures: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap13.pdf">=
+PDF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Figures/chap13.ps">P=
+S</A>],=20
+algorithms: [<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Algorithms/pchap13.p=
+df">PDF</A>]=20
+[<A=20
+href=3D"http://www-users.cs.umn.edu/~karypis/parbook/Algorithms/pchap13.p=
+s">PS</A>])=20
+<BR>&nbsp;&nbsp;&nbsp; </P>
+<UL>
+  <LI>The Serial Algorithm=20
+  <LI>The Binary-Exchange Algorithm=20
+  <LI>The Transpose Algorithm=20
+  <LI>Cost-Effectiveness of Parallel FFT Algorithms=20
+  <LI>Bibliographic Remarks </LI></UL>
+<P>&nbsp;</P>
+<DIV=20
+style=3D"FONT-STYLE: italic; MARGIN-TOP: 25px; CLEAR: both; FONT-SIZE: =
+small; FONT-WEIGHT: normal"=20
+id=3Ddisclaimer>
+<P>The views and opinions expressed in this page are strictly those of =
+the page=20
+author.<BR>The contents of this page have not been reviewed or approved =
+by the=20
+University of Minnesota.</P></DIV></FONT></BODY></HTML>
+
+------=_NextPart_000_0000_01CCC008.07444DD0
+Content-Type: image/jpeg
+Content-Transfer-Encoding: base64
+Content-Location: http://www-users.cs.umn.edu/~karypis/parbook/Images/bcover2.jpg
+
+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
+KZIhnIRtpj1Qxtb9amg0qupeqH//2Q==
+
+------=_NextPart_000_0000_01CCC008.07444DD0--

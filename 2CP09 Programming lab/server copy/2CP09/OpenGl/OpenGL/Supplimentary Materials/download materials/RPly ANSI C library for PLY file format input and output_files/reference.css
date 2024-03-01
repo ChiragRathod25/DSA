@@ -1,0 +1,69 @@
+BODY {
+	MARGIN-LEFT: 1em; MARGIN-RIGHT: 1em; FONT-FAMILY: "Verdana", sans-serif
+}
+TT {
+	FONT-FAMILY: "Andale Mono", monospace
+}
+H1 {
+	MARGIN-LEFT: 0em
+}
+H2 {
+	MARGIN-LEFT: 0em
+}
+H3 {
+	MARGIN-LEFT: 0em
+}
+H4 {
+	MARGIN-LEFT: 0em
+}
+H3 {
+	PADDING-TOP: 1em
+}
+P {
+	MARGIN-LEFT: 1em
+}
+P.name {
+	MARGIN-LEFT: 0em; PADDING-TOP: 1em; FONT-FAMILY: "Andale Mono", monospace
+}
+UNKNOWN {
+	COLOR: #7f0000
+}
+BLOCKQUOTE {
+	MARGIN-LEFT: 3em
+}
+PRE.example {
+	PADDING-RIGHT: 1em; PADDING-LEFT: 1em; FONT-SIZE: small; BACKGROUND: #cbb; PADDING-BOTTOM: 1em; MARGIN-LEFT: 1em; PADDING-TOP: 1em; FONT-FAMILY: "Andale Mono", monospace
+}
+HR {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BACKGROUND: #7f0000; MARGIN-LEFT: 0em; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px; HEIGHT: 1px
+}
+UL {
+	LIST-STYLE-TYPE: disc
+}
+TABLE.index {
+	BORDER-RIGHT: #7f0000 1px; BORDER-TOP: #7f0000 1px; BORDER-LEFT: #7f0000 1px; BORDER-BOTTOM: #7f0000 1px
+}
+TABLE.index TD {
+	VERTICAL-ALIGN: top; TEXT-ALIGN: left
+}
+TABLE.index UL {
+	MARGIN-TOP: 0em; PADDING-TOP: 0em
+}
+H1:first-letter {
+	COLOR: #7f0000
+}
+H2:first-letter {
+	COLOR: #7f0000
+}
+H2:first-letter {
+	COLOR: #7f0000
+}
+H3:first-letter {
+	COLOR: #7f0000
+}
+DIV.header {
+	MARGIN-LEFT: 0em
+}
+DIV.footer {
+	MARGIN-LEFT: 0em
+}

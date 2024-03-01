@@ -1,0 +1,366 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0056)http://graphics.stanford.edu/software/vrip/plyusage.html -->
+<HTML><HEAD><TITLE>VripPack: PLY Tools</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY>
+<H1>PLY Tools</H1>
+<P>Below are a set of tools for manipulating PLY files. 
+<P>Here are some quick links to the descriptions of these tools: 
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD vAlign=top>
+      <UL>
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#ply2asc">ply2asc</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#ply2bboxcube">ply2bboxcube</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#ply2bin">ply2bin</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#ply2crunchset">ply2crunchset</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#ply2verts">ply2verts</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plyaddinfo">plyaddinfo</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plyarea">plyarea</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plybbox">plybbox</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plybound">plybound</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plycomps">plycomps</A> 
+        </LI></UL></TD>
+    <TD vAlign=top>
+      <UL>
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plyconfcrop">plyconfcrop</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plycrunch">plycrunch</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plydice">plydice</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plyflip">plyflip</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plyhead">plyhead</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plymirror">plymirror</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plynormals">plynormals</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plyremove">plyremove</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plys2set">plys2set</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plysetlevel">plysetlevel</A> 
+        </LI></UL></TD>
+    <TD vAlign=top>
+      <UL>
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plysets2conf">plysets2conf</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plyshared">plyshared</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plystrip">plystrip</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plysubdiv">plysubdiv</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plysubtract">plysubtract</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plyunshared">plyunshared</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plyvolume">plyvolume</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#plyxform">plyxform</A> 
+
+        <LI><A 
+        href="http://graphics.stanford.edu/software/vrip/plyusage.html#xyz2ply">xyz2ply</A> 
+        </LI></UL></TD></TR></TBODY></TABLE>
+<H3><A name=ply2asc>ply2asc</A></H3><PRE>usage: ply2asc [flags] [infile] &gt; outfile
+   or: ply2asc [flags] &lt; infile &gt; outfile
+          -p (print element labels)
+</PRE>
+<H3><A name=ply2bboxcube>ply2bboxcube</A></H3><PRE>Usage: ply2bboxcube in1.ply [in2.ply] ...
+
+And it will generate files called in1.bboxcube.ply,
+in2.bboxcube.ply, etc.....
+Which contain all 12 faces of the bounding box.
+</PRE>
+<H3><A name=ply2bin>ply2bin</A></H3><PRE>usage: ply2bin [infile] &gt; outfile
+   or: ply2bin &lt; infile &gt; outfile
+</PRE>
+<H3><A name=plycrunchset>plycrunchset</A></H3><PRE>Usage:  ply2crunchset [options] in.ply...
+
+Options:
+         -l levels    number of levels for final
+                      .set file (default 4)
+</PRE>
+<H3><A name=ply2verts>ply2verts</A></H3><PRE>Usage: ply2verts [flags] [in.ply] &gt; out
+   or: ply2verts [flags] &lt; in.ply &gt; out
+Flags:
+       -s scale
+</PRE>
+<H3><A name=plyaddinfo>plyaddinfo</A></H3><PRE>Usage: plyaddinfo file.ply 'info_1' ... 'info_n'
+   or: plyaddinfo - 'info_1' ... 'info_n' &lt; in.ply &gt; out.ply
+</PRE>
+<H3><A name=plyarea>plyarea</A></H3><PRE>usage: plyarea [in.ply]
+   or: plyarea &lt; in.ply
+</PRE>
+<H3><A name=plybbox>plybbox</A></H3><PRE>usage: plybbox [in.ply]
+   or: plybbox &lt; in.ply
+</PRE>
+<H3><A name=plybound>plybound</A></H3><PRE>usage: plybound [flags] [in.ply] &gt; out.ply
+   or: plybound [flags] &lt; in.ply &gt; out.ply
+       -b box_size (default = 2)
+       -c xcenter ycenter zcenter (default is origin)
+       -m (use mass center instead of geometric center)
+       -p (only print information)
+</PRE>
+<H3><A name=plycomps>plycomps</A></H3><PRE>usage: plycomps [flags] [in.ply]
+   or: plycomps [flags] &lt; in.ply
+       -s (silent mode)
+       -m num filename
+          (writes out all components with &gt;= num verts)
+       -l num filename
+          (writes out all components with &lt;= num verts)
+       -t num (max num of components printed to screen and written to file)
+</PRE>
+<H3><A name=plyconfcrop>plyconfcrop</A></H3><PRE>usage: plyconfcrop [flags] [in.ply] &gt; out.ply
+   or: plyconfcrop [flags] &lt; in.ply &gt; out.ply
+       -c confidence_threshold (default = 0)
+
+   This program will remove all vertices (and their
+   corresponding faces) that have a confidence at or 
+   below the cutoff threshold.  By default, it removes
+   vertices with confidence 0.
+</PRE>
+<H3><A name=plycrunch>plycrunch</A></H3><PRE>usage: plycrunch [flags] [in.ply] &gt; out.ply
+   or: plycrunch [flags] &lt; in.ply &gt; out.ply
+       -d distance (default = 1e-04)
+</PRE>
+<H3><A name=plydice>plydice</A></H3><PRE>usage: plydice [options] subvol_size epsilon [in.ply]
+   or: plydice [options] subvol_size epsilon &lt; in.ply
+
+Options:
+       -writebbox bboxname (writes mesh bbox to file)
+       -printbbox    (prints bbox to stdout)
+       -outdir dir   (directory for storing output files..)
+       -dice subvolsize epsilon basename
+              Will write out subvols of the form:
+              basename_-2_3_0.ply
+              (and write the names of the files to stdout.)
+       -odice subvolsize epsilon basename
+              Other dice option.  Will not actually generate
+              any ply files, but will write their names to
+              stdout (useful to find which subvols have tris.
+       -crop minx miny minz maxx maxy maxz (crops output)
+
+As well as plyxform options:
+       -f m.xf (a transform matrix file)
+       -t xtrans ytrans ztrans (translation)
+       -s xscale yscale zscale (scale)
+       -r xangle yangle zangle (rotation, all in degrees)
+       -q qi qj qk ql  (rotation, quaternion)
+  (point = m.xf * (ftrans_factor + rotz * roty * rotx * scale_factor * point))
+</PRE>
+<H3><A name=plyflip>plyflip</A></H3><PRE>usage: plyflip [flags] [in.ply] &gt; out.ply
+   or: plyflip [flags] &lt; in.ply &gt; out.ply
+       -n (flip normals)
+       -b (flip both normals and vertex order in faces)
+</PRE>
+<H3><A name=plyhead>plyhead</A></H3><PRE>Usage: plyhead [ply-file]
+   or: plyhead &lt; ply-file
+
+  plyhead prints the header information from a Ply file.
+
+Note:  When reading on stdin, it makes the assumption
+that it is a valid ply file.  If you're not sure,
+pass the filename as an argument.
+</PRE>
+<H3><A name=plymirror>plymirror</A></H3><PRE>usage: plymirror in.mir in.xf [-o out.ply] [-r rest.ply] [in.ply]
+   or: plymirror in.mir in.xf [-o out.ply] [-r rest.ply] &lt; in.ply
+   or: plymirror all    none  [-o out.ply] [-r rest.ply] &lt; in.ply
+where:
+     in.mir is mirror file, four lines of 3 coords, for each
+              corner of the mirror glass.  (the keyword
+              'all' mirrors the entire scan in x.)
+     in.xf is the .xf file moving the mirror file to match
+              the position of the mirror in the input file.
+              ('none' loads the identity matrix.)
+     out.ply is the output file for all points seen through
+              the mirror.
+     rest.ply is the output file for all points NOT seen
+              through the mirror.
+     in.ply   is the input ply file.
+</PRE>
+<H3><A name=plynormals>plynormals</A></H3><PRE>usage: plynormals [flags] [in.ply] &gt; out.ply
+   or: plynormals [flags] &lt; in.ply &gt; out.ply
+       -f (flip sign of normals)
+       -a (use area weighted average)
+usage: plyremove [in.ply] [element1] ... [elementN] &gt; out.ply
+   or: plyremove - [element1] ... [elementN] &lt; in.ply &gt; out.ply
+
+This program removes elements from a ply file.
+Or you can remove a property from an element.
+For example: plyremove - face vertex.z &lt; x.ply &gt; y.ply
+will remove faces and z components of vertices.
+</PRE>
+<H3><A name=plys2set>plys2set</A></H3><PRE>Usage:  plys2set [-q] [-no_dir_strip] [-no_xform] out.set x1.ply x2.ply...
+
+It checks to make sure out.set has the .set extension.
+Then it creates/overwrites the .set file, using the
+specified ply files.  If a corresponding .xf file
+does not exist, it creates one (with the identity
+matrix).  If the .xf file already exists, it does not
+touch it.  It sets the lowest resolution .ply file to
+be the default, and all others are not preloaded.
+</PRE>
+<H3><A name=plysetlevel>plysetlevel</A></H3><PRE>Usage: plysetlevel n 1.set 2.set 3.set ...
+
+       where n is an integer, usually from 1 to 4,
+       and is the desired level.  So it will set the
+       nth mesh in each .set file to be the default,
+       and all higher-res meshes will not be preloaded.
+       e.g:
+             plysetlevel 2 *.set
+       will tell every set to load in meshes 2..4,
+       and make mesh 2 the default.
+</PRE>
+<H3><A name=plysets2conf>plysets2conf</A></H3><PRE>Usage: plysets2conf [-l n] &lt;1.set&gt; &lt;2.set&gt; ... &gt; all.conf
+
+The program will add the first-listed ply file for
+Each set to the conf file, as well as the xf.
+
+  -l    Use the nth level mesh.  E.g. if n is 1,
+        use the first mesh listed in each set file.
+
+Ex:  plysets2conf -l 4 a.set b.set
+     Will generate a .conf file with level 4 of each set.
+</PRE>
+<H3><A name=plyshared>plyshared</A></H3><PRE>usage: plyshared [flags] &lt; in.ply &gt; out.ply
+usage: plyshared [flags] [in1.ply [in2.ply] ...] &gt; out.ply
+flags:
+       -t tolerance (default = 1e-04)
+
+This program takes one or more ply files, and merges 
+vertices that are within tolerance of each other.
+This is useful to combine multiple meshes into a single
+mesh, with smoothly continuous normals.
+
+If handling more than one file, the vertex and face elements
+must have exactly the same properties (in the same order)
+in all files or else it will print an error and exit.  If
+the files have extra elements, they will be ignored (except 
+for the first file, which has all extra elements written out,
+to maintain backward-compatibility with old plyshared.  It will
+print a warning message if elements are ignored.
+</PRE>
+<H3><A name=plystrip>plystrip</A></H3><PRE>Usage: plystrip infile outfile
+
+plystrip will strip things that aren't, and unstrip things that are,
+stripped.
+
+-s will force strip; -u will force unstrip
+-q runs in quiet mode.
+</PRE>
+<H3><A name=plysubdiv>plysubdiv</A></H3><PRE>usage: plysubdiv [flags] [in.ply] &gt; out.ply
+   or: plysubdiv [flags] &lt; in.ply &gt; out.ply
+
+   This program will subdivide triangles in the mesh
+   to create a new file with even more triangles. 
+   As a general operator, it will create a new vertex
+   at the midpoint of each triangle edge, and then
+   re-tesselate it with 4 triangles instead of 1.
+   E.g.:
+                                                     
+        o                      o                     
+       / `                    / `                    
+      /   `     ------&gt;      o---o                   
+     /     `                / ` / `                  
+    o-------o              o---o---o                 
+
+   It does nothing intelligent with other properties
+   (such as confidence or normals).  Faces copy the
+   original face's properties, and new vertices copy
+   the attributes of original vertices.
+
+Known bugs:
+   - It allocates a little more memory than it needs,
+     and doesn't check array limits well.
+   - It only works for triangles, not 4+ sided faces.
+</PRE>
+<H3><A name=plysubtract>plysubtract</A></H3><PRE>usage: plysubtract [flags] [A.ply] [B.ply] &gt; out.ply
+flags:
+       -i           (does intersection instead of subtraction)
+       -t tolerance (default = 1e-04)
+
+This program computes (A-B), namely, those faces in A
+that do not occur in B.  "Face equivalence" is defined
+as two faces, a' and b', such that every vertex in a' has
+a 1-1 mapping to vertices in b'.  The distance between
+corresponding pairs must be less than tolerance, and for each
+vertex of b', the corresponding a' vertex must be the closest
+vertex in A.
+
+With the -i flag, it outputs (A^B), with the same definition
+for face equivalence.
+</PRE>
+<H3><A name=plyunshared>plyunshared</A></H3><PRE>usage: plyunshared [in.ply] &gt; out.ply
+   or: plyunshared &lt; in.ply &gt; out.ply
+</PRE>
+<H3><A name=plyvolume>plyvolume</A></H3><PRE>Usage:
+  plyvolume -h | [-p nx ny nz d] (- | file1.ply [file2.ply [...]])
+where:
+  -h         Displays this help
+  -p         Specifies a plane to use as the base; 
+             the plane has normal (nx, ny, nz) and is distance 
+             d from the origin in the normal's direction
+  -          Reads one ply file from standard input
+  file.ply   Is a ply file whose volume is added to the total.
+</PRE>
+<H3><A name=plyxform>plyxform</A></H3><PRE>usage: plyxform [flags] [in.ply] &gt; out.ply
+   or: plyxform [flags] &lt; in.ply &gt; out.ply
+       -f m.xf (a transform matrix file)
+       -t xtrans ytrans ztrans
+       -s xscale yscale zscale
+       -r xangle yangle zangle (all in degrees)
+       -q qi qj qk ql
+  (point = m.xf * (ftrans_factor + rotz * roty * rotx * scale_factor * point))
+Convert NRC xyz laser range scan to a ply file.
+</PRE>
+<H3><A name=xyz2ply>xyz2ply</A></H3><PRE>Usage:
+  xyz2ply -h | [-r] [headersize [rows [colunms]]] &lt; file.xyz &gt; file.ply
+where:
+  -h          Shows this help
+  -r          Reverses the order of points in a row
+  headersize  Override the size of the header to be headersize
+  rows        Override the number of rows
+  columns     Override the number of columns
+</PRE></BODY></HTML>

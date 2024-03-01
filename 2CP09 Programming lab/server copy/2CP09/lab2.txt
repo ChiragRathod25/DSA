@@ -1,0 +1,4 @@
+Implement  copy  command  which  take  source  file  and  destination  file  as command line argument. 
+File may be binary or ascii file.
+
+Example: ./cp sourcefile destinationfile                                                        

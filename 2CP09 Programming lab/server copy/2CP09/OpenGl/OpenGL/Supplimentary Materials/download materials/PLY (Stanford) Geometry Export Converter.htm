@@ -1,0 +1,957 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0037)http://www.okino.com/conv/exp_ply.htm -->
+<HTML><HEAD><TITLE>PLY (Stanford) Geometry Export Converter</TITLE><!-- This fixes NS4 cache hang problem. See 'rcl_website_notes.txt' -->
+<META content=RSE name=FixNSBug>
+<META 
+content="Okino Computer Graphics develops and markets a broad&#13;&#10;range of 3d rendering, visualization, 3d data translation/conversion and toolkit software:&#13;&#10;the NuGraf Rendering System, the PolyTrans 3D Data Translator/Converter, and the NuGraf&#13;&#10;Developer's 3D Toolkit/Library" 
+name=description>
+<META 
+content="okino computer graphics,nugraf,nugraph,render,rendering,animation,walk-through,ray-tracing,ray tracing,polytrans,poly trans,conversion,translation,converter,3d converter,translator,3d model converter,3d model translator,softimage,3d games,game development,3DSMAX,3DS max, 3d studio max,alias,import,export,3ds,truespace,caligari,detailer,dxf,autocad,iges,imagine,lightwave,openflight,flt,pro/engineer,pro/e,pro engineer,plugin,plug-in,renderware,softimage,stereolithography,stl,strata,studiopro,usgs dem,vistapro,3dmf,quickdraw3d,quickdraw-3d,wavefront,.obj,directx, direct-x,pov-ray,vrml,renderman,rib,opengl" 
+name=keywords>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1"><LINK 
+href="PLY (Stanford) Geometry Export Converter_files/okino.css" type=text/css 
+rel=stylesheet><!-- Determine current browser type -->
+<SCRIPT language=JavaScript 
+src="PLY (Stanford) Geometry Export Converter_files/okino_javascript.js"></SCRIPT>
+
+<SCRIPT language=JavaScript>
+<!--//
+var is = new Is()
+if (is.ns2 || is.ns3 || is.ns4 || is.ie3) {
+	document.write("<link href='/templates/styles/netscape.css' rel='stylesheet' type='text/css'>");
+} else {
+	document.write("<link href='/templates/styles/non-netscape.css' rel='stylesheet' type='text/css'>");
+}
+// --></SCRIPT>
+<LINK href="PLY (Stanford) Geometry Export Converter_files/sidebar.css" 
+type=text/css rel=stylesheet><!-- This is the menu loading code and menu setup code. We can't put it in a .js file because Fireworks needs it to be in this file for editing purposes -->
+<SCRIPT language=JavaScript><!--
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+function MM_nbGroup(event, grpName) { //v6.0
+var i,img,nbArr,args=MM_nbGroup.arguments;
+  if (event == "init" && args.length > 2) {
+    if ((img = MM_findObj(args[2])) != null && !img.MM_init) {
+      img.MM_init = true; img.MM_up = args[3]; img.MM_dn = img.src;
+      if ((nbArr = document[grpName]) == null) nbArr = document[grpName] = new Array();
+      nbArr[nbArr.length] = img;
+      for (i=4; i < args.length-1; i+=2) if ((img = MM_findObj(args[i])) != null) {
+        if (!img.MM_up) img.MM_up = img.src;
+        img.src = img.MM_dn = args[i+1];
+        nbArr[nbArr.length] = img;
+    } }
+  } else if (event == "over") {
+    document.MM_nbOver = nbArr = new Array();
+    for (i=1; i < args.length-1; i+=3) if ((img = MM_findObj(args[i])) != null) {
+      if (!img.MM_up) img.MM_up = img.src;
+      img.src = (img.MM_dn && args[i+2]) ? args[i+2] : ((args[i+1])?args[i+1] : img.MM_up);
+      nbArr[nbArr.length] = img;
+    }
+  } else if (event == "out" ) {
+    for (i=0; i < document.MM_nbOver.length; i++) { img = document.MM_nbOver[i]; img.src = (img.MM_dn) ? img.MM_dn : img.MM_up; }
+  } else if (event == "down") {
+    nbArr = document[grpName];
+    if (nbArr) for (i=0; i < nbArr.length; i++) { img=nbArr[i]; img.src = img.MM_up; img.MM_dn = 0; }
+    document[grpName] = nbArr = new Array();
+    for (i=2; i < args.length-1; i+=2) if ((img = MM_findObj(args[i])) != null) {
+      if (!img.MM_up) img.MM_up = img.src;
+      img.src = img.MM_dn = (args[i+1])? args[i+1] : img.MM_up;
+      nbArr[nbArr.length] = img;
+  } }
+}
+
+function MM_preloadImages() { //v3.0
+ var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+   var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+   if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function mmLoadMenus() {
+  if (window.mm_menu_1106022445_0) return;
+                                                    window.mm_menu_1106022445_0_1 = new Menu("PolyTrans",152,21,"Arial, Helvetica, sans-serif",11,"#ffffff","#ffffff","#3c6997","#3f80c0","left","middle",5,1,200,-5,7,true,true,true,0,true,true);
+    mm_menu_1106022445_0_1.addMenuItem("Description","location='/conv/conv.htm'");
+    mm_menu_1106022445_0_1.addMenuItem("Feature&nbsp;Comparisons","location='/version_comparisons.htm'");
+    mm_menu_1106022445_0_1.addMenuItem("File&nbsp;Formats","location='/conv/filefrmt.htm'");
+    mm_menu_1106022445_0_1.addMenuItem("Download&nbsp;Demo","location='/conv/demos.htm'");
+    mm_menu_1106022445_0_1.addMenuItem("Notable&nbsp;Users","location='/conv/users.htm'");
+    mm_menu_1106022445_0_1.addMenuItem("Brochures","location='/new/brochures/index.htm'");
+    mm_menu_1106022445_0_1.addMenuItem("Testimonials/Reviews","location='/testimon.htm'");
+     mm_menu_1106022445_0_1.hideOnMouseOut=true;
+     mm_menu_1106022445_0_1.bgColor='#000000';
+     mm_menu_1106022445_0_1.menuBorder=1;
+     mm_menu_1106022445_0_1.menuLiteBgColor='#6C8EB1';
+     mm_menu_1106022445_0_1.menuBorderBgColor='#6C8EB1';
+    window.mm_menu_1106022445_0_2 = new Menu("NuGraf",152,21,"Arial, Helvetica, sans-serif",11,"#ffffff","#ffffff","#3c6997","#3f80c0","left","middle",5,1,200,-5,7,true,true,true,0,true,true);
+    mm_menu_1106022445_0_2.addMenuItem("Description","location='/nrs/nrs.htm'");
+    mm_menu_1106022445_0_2.addMenuItem("Feature&nbsp;Comparisons","location='/version_comparisons.htm'");
+    mm_menu_1106022445_0_2.addMenuItem("File&nbsp;Formats","location='/conv/filefrmt.htm'");
+    mm_menu_1106022445_0_2.addMenuItem("Download&nbsp;Demo","location='/conv/demos.htm'");
+    mm_menu_1106022445_0_2.addMenuItem("Notable&nbsp;Users","location='/conv/users.htm'");
+    mm_menu_1106022445_0_2.addMenuItem("Brochures","location='/new/brochures/index.htm'");
+    mm_menu_1106022445_0_2.addMenuItem("Testimonials/Reviews","location='/testimon.htm'");
+     mm_menu_1106022445_0_2.hideOnMouseOut=true;
+     mm_menu_1106022445_0_2.bgColor='#000000';
+     mm_menu_1106022445_0_2.menuBorder=1;
+     mm_menu_1106022445_0_2.menuLiteBgColor='#6C8EB1';
+     mm_menu_1106022445_0_2.menuBorderBgColor='#6C8EB1';
+    window.mm_menu_1106022445_0_3 = new Menu("Special&nbsp;Plug-In&nbsp;Systems",256,21,"Arial, Helvetica, sans-serif",11,"#ffffff","#ffffff","#3c6997","#3f80c0","left","middle",5,1,200,-5,7,true,true,true,0,true,true);
+    mm_menu_1106022445_0_3.addMenuItem("PolyTrans-for-Maya","location='/conv/pt4maya.htm'");
+    mm_menu_1106022445_0_3.addMenuItem("PolyTrans-for-3DS&nbsp;MAX","location='/conv/pt4max.htm'");
+    mm_menu_1106022445_0_3.addMenuItem("PolyTrans-for-XSI&nbsp;(proxy&nbsp;plug-in)","location='/conv/pt4xsi.htm'");
+    mm_menu_1106022445_0_3.addMenuItem("PolyTrans-for-Director&nbsp;(proxy&nbsp;plug-in)","location='/conv/pt4director.htm'");
+     mm_menu_1106022445_0_3.hideOnMouseOut=true;
+     mm_menu_1106022445_0_3.bgColor='#000000';
+     mm_menu_1106022445_0_3.menuBorder=1;
+     mm_menu_1106022445_0_3.menuLiteBgColor='#6C8EB1';
+     mm_menu_1106022445_0_3.menuBorderBgColor='#6C8EB1';
+  window.mm_menu_1106022445_0 = new Menu("root",263,21,"Arial, Helvetica, sans-serif",11,"#ffffff","#ffffff","#3c6997","#3f80c0","left","middle",5,1,200,-5,7,true,true,true,0,true,true);
+  mm_menu_1106022445_0.addMenuItem(mm_menu_1106022445_0_1,"location='/conv/conv.htm'");
+  mm_menu_1106022445_0.addMenuItem(mm_menu_1106022445_0_2,"location='/nrs/nrs.htm'");
+  mm_menu_1106022445_0.addMenuItem(mm_menu_1106022445_0_3);
+  mm_menu_1106022445_0.addMenuItem("NuGraf&nbsp;Developer's&nbsp;3D&nbsp;Toolkit&nbsp;(OEM)","location='/new/toolkit/index.htm'");
+  mm_menu_1106022445_0.addMenuItem("Third&nbsp;Party&nbsp;Plug-In&nbsp;Modules","location='/third_party_plugin_modules.htm'");
+   mm_menu_1106022445_0.hideOnMouseOut=true;
+   mm_menu_1106022445_0.childMenuIcon="/templates/images/menu_arrow.gif";
+   mm_menu_1106022445_0.bgColor='#000000';
+   mm_menu_1106022445_0.menuBorder=1;
+   mm_menu_1106022445_0.menuLiteBgColor='#6C8EB1';
+   mm_menu_1106022445_0.menuBorderBgColor='#6C8EB1';
+window.mm_menu_1106023501_1 = new Menu("root",77,21,"Arial, Helvetica, sans-serif",11,"#ffffff","#ffffff","#3c6997","#3f80c0","left","middle",5,1,250,-5,7,true,true,true,0,true,true);
+  mm_menu_1106023501_1.addMenuItem("Solutions","window.open('/solutions/solutions.htm', '_self');");
+   mm_menu_1106023501_1.hideOnMouseOut=true;
+   mm_menu_1106023501_1.bgColor='#000000';
+   mm_menu_1106023501_1.menuBorder=1;
+   mm_menu_1106023501_1.menuLiteBgColor='#6C8EB1';
+   mm_menu_1106023501_1.menuBorderBgColor='#6C8EB1';
+
+window.mm_menu_1106023809_2 = new Menu("root",269,21,"Arial, Helvetica, sans-serif",11,"#ffffff","#ffffff","#3c6997","#3f80c0","left","middle",5,1,250,-5,7,true,true,true,0,true,true);
+  mm_menu_1106023809_2.addMenuItem("NuGraf&nbsp;Demo&nbsp;(includes&nbsp;all&nbsp;of&nbsp;PolyTrans)","location='/nrs/demos.htm'");
+  mm_menu_1106023809_2.addMenuItem("PolyTrans&nbsp;Demo","location='/conv/demos.htm'");
+   mm_menu_1106023809_2.hideOnMouseOut=true;
+   mm_menu_1106023809_2.bgColor='#000000';
+   mm_menu_1106023809_2.menuBorder=1;
+   mm_menu_1106023809_2.menuLiteBgColor='#6C8EB1';
+   mm_menu_1106023809_2.menuBorderBgColor='#6C8EB1';
+          window.mm_menu_1106023913_3 = new Menu("root",213,21,"Arial, Helvetica, sans-serif",11,"#ffffff","#ffffff","#336699","#3f80c0","left","middle",5,1,250,-5,7,true,true,true,0,true,true);
+  mm_menu_1106023913_3.addMenuItem("CAD&nbsp;Case&nbsp;Studies","location='/casestudies.htm'");
+  mm_menu_1106023913_3.addMenuItem("CAD&nbsp;Compatibility&nbsp;Chart","location='/conv/filefrmt_cad.htm'");
+  mm_menu_1106023913_3.addMenuItem("FAQs","location='/faqs_output_dir/faqmain.htm'");
+  mm_menu_1106023913_3.addMenuItem("File&nbsp;Formats&nbsp;Supported","location='/conv/filefrmt.htm'");
+  mm_menu_1106023913_3.addMenuItem("Imagery","location='/mainpic.htm'");
+  mm_menu_1106023913_3.addMenuItem("Links","location='/links.htm'");
+  mm_menu_1106023913_3.addMenuItem("Press&nbsp;Releases","location='/press/releases.htm'");
+  mm_menu_1106023913_3.addMenuItem("Testimonials","location='/testimon.htm'");
+  mm_menu_1106023913_3.addMenuItem("Third&nbsp;Party&nbsp;Plug-In&nbsp;Modules","location='/third_party_plugin_modules.htm'");
+  mm_menu_1106023913_3.addMenuItem("Tutorials","location='/tutorials/tutorials.htm'");
+  mm_menu_1106023913_3.addMenuItem("Skeletons&nbsp;&&nbsp;Skinning","location='/conv/skinning.htm'");
+  mm_menu_1106023913_3.addMenuItem("Snippets&nbsp;of&nbsp;the&nbsp;Okino&nbsp;User&nbsp;List","location='/conv/users.htm'");
+  mm_menu_1106023913_3.addMenuItem("Version&nbsp;Comparisons","location='/version_comparisons.htm'");
+   mm_menu_1106023913_3.hideOnMouseOut=true;
+   mm_menu_1106023913_3.bgColor='#000000';
+   mm_menu_1106023913_3.menuBorder=1;
+   mm_menu_1106023913_3.menuLiteBgColor='#669999';
+   mm_menu_1106023913_3.menuBorderBgColor='#669999';
+window.mm_menu_1106025349_4_1 = new Menu("Buy&nbsp;PolyTrans&nbsp;or&nbsp;NuGraf",103,21,"Arial, Helvetica, sans-serif",11,"#ffffff","#ffffff","#3c6997","#3f80c0","left","middle",5,1,250,-5,7,true,true,true,0,true,true);
+    mm_menu_1106025349_4_1.addMenuItem("Prices&nbsp;&&nbsp;Info","location='/conv/order/order.htm'");
+    mm_menu_1106025349_4_1.addMenuItem("Online&nbsp;Order","location='/nav/ordermain.htm'");
+     mm_menu_1106025349_4_1.hideOnMouseOut=true;
+     mm_menu_1106025349_4_1.bgColor='#000000';
+     mm_menu_1106025349_4_1.menuBorder=1;
+     mm_menu_1106025349_4_1.menuLiteBgColor='#6C8EB1';
+     mm_menu_1106025349_4_1.menuBorderBgColor='#6C8EB1';
+  window.mm_menu_1106025349_4 = new Menu("root",178,21,"Arial, Helvetica, sans-serif",11,"#ffffff","#ffffff","#3c6997","#3f80c0","left","middle",5,1,250,-5,7,true,true,true,0,true,true);
+  mm_menu_1106025349_4.addMenuItem(mm_menu_1106025349_4_1,"location='/conv/order/order.htm'");
+  mm_menu_1106025349_4.addMenuItem("Contact&nbsp;Okino","location='/okino.htm'");
+  mm_menu_1106025349_4.addMenuItem("Brochures","location='/new/brochures/index.htm'");
+   mm_menu_1106025349_4.hideOnMouseOut=true;
+   mm_menu_1106025349_4.childMenuIcon="/templates/images/menu_arrow.gif";
+   mm_menu_1106025349_4.bgColor='#000000';
+   mm_menu_1106025349_4.menuBorder=1;
+   mm_menu_1106025349_4.menuLiteBgColor='#6C8EB1';
+   mm_menu_1106025349_4.menuBorderBgColor='#6C8EB1';
+  window.mm_menu_1106024606_4 = new Menu("root",194,21,"Arial, Helvetica, sans-serif",11,"#ffffff","#ffffff","#3c6997","#3f80c0","left","middle",5,1,250,-5,7,true,true,true,0,true,true);
+  mm_menu_1106024606_4.addMenuItem("Technical&nbsp;Support&nbsp;Options","location='/support.htm'");
+  mm_menu_1106024606_4.addMenuItem("CAD&nbsp;Compatibility&nbsp;Chart","location='/conv/filefrmt_cad.htm'");
+  mm_menu_1106024606_4.addMenuItem("FAQs&nbsp;and&nbsp;Knowledge&nbsp;Base","location='/faqs_output_dir/faqmain.htm'");
+  mm_menu_1106024606_4.addMenuItem("Register&nbsp;an&nbsp;Okino&nbsp;Product","location='/registerproduct.php'");
+  mm_menu_1106024606_4.addMenuItem("Software&nbsp;Updates","location='/webupdate/webupdates.htm'");
+  mm_menu_1106024606_4.addMenuItem("Tutorials","location='/tutorials/tutorials.htm'");
+  mm_menu_1106024606_4.addMenuItem("Version&nbsp;Comparisons","location='/version_comparisons.htm'");
+   mm_menu_1106024606_4.hideOnMouseOut=true;
+   mm_menu_1106024606_4.bgColor='#000000';
+   mm_menu_1106024606_4.menuBorder=1;
+   mm_menu_1106024606_4.menuLiteBgColor='#6C8EB1';
+   mm_menu_1106024606_4.menuBorderBgColor='#6C8EB1';
+window.mm_menu_1106024806_5 = new Menu("root",276,21,"Arial, Helvetica, sans-serif",11,"#ffffff","#ffffff","#3c6997","#3f80c0","left","middle",5,1,250,-5,7,true,true,true,0,true,true);
+  mm_menu_1106024806_5.addMenuItem("Plug-In&nbsp;SDK&nbsp;(free)","location='/plugin_sdk/plugin_sdk.htm'");
+  mm_menu_1106024806_5.addMenuItem("NuGraf&nbsp;Developer's&nbsp;3D&nbsp;Toolkit&nbsp;(licensed)","location='/new/toolkit/index.htm'");
+  mm_menu_1106024806_5.addMenuItem("Third&nbsp;Party&nbsp;Plug-In&nbsp;Modules","location='/third_party_plugin_modules.htm'");
+   mm_menu_1106024806_5.hideOnMouseOut=true;
+   mm_menu_1106024806_5.bgColor='#000000';
+   mm_menu_1106024806_5.menuBorder=1;
+   mm_menu_1106024806_5.menuLiteBgColor='#6C8EB1';
+   mm_menu_1106024806_5.menuBorderBgColor='#6C8EB1';
+    window.mm_menu_1106024858_6_1 = new Menu("Press&nbsp;Info",151,21,"Arial, Helvetica, sans-serif",11,"#ffffff","#ffffff","#3c6997","#3f80c0","left","middle",5,1,1000,-5,7,true,true,true,0,true,true);
+    mm_menu_1106024858_6_1.addMenuItem("Press&nbsp;Releases","location='/press/releases.htm'");
+    mm_menu_1106024858_6_1.addMenuItem("Press&nbsp;Information","location='/press/magpics.htm'");
+    mm_menu_1106024858_6_1.addMenuItem("Brochures","location='/new/brochures/index.htm'");
+    mm_menu_1106024858_6_1.addMenuItem("Notable&nbsp;Users","location='/conv/users.htm'");
+    mm_menu_1106024858_6_1.addMenuItem("Testimonials/Reviews","location='/testimon.htm'");
+     mm_menu_1106024858_6_1.hideOnMouseOut=true;
+     mm_menu_1106024858_6_1.bgColor='#000000';
+     mm_menu_1106024858_6_1.menuBorder=1;
+     mm_menu_1106024858_6_1.menuLiteBgColor='#6C8EB1';
+     mm_menu_1106024858_6_1.menuBorderBgColor='#6C8EB1';
+  window.mm_menu_1106024858_6 = new Menu("root",102,21,"Arial, Helvetica, sans-serif",11,"#ffffff","#ffffff","#3c6997","#3f80c0","left","middle",5,1,1000,-5,7,true,true,true,0,true,true);
+  mm_menu_1106024858_6.addMenuItem("About&nbsp;Okino","location='/okino.htm'");
+  mm_menu_1106024858_6.addMenuItem("Partners","location='/partners/partners.htm'");
+  mm_menu_1106024858_6.addMenuItem("Links","location='/links.htm'");
+  mm_menu_1106024858_6.addMenuItem(mm_menu_1106024858_6_1,"location='/press/releases.htm'");
+   mm_menu_1106024858_6.hideOnMouseOut=true;
+   mm_menu_1106024858_6.childMenuIcon="/templates/images/menu_arrow.gif";
+   mm_menu_1106024858_6.bgColor='#000000';
+   mm_menu_1106024858_6.menuBorder=1;
+   mm_menu_1106024858_6.menuLiteBgColor='#6C8EB1';
+   mm_menu_1106024858_6.menuBorderBgColor='#6C8EB1';
+
+mm_menu_1106024858_6.writeMenus();
+} // mmLoadMenus()
+//--></SCRIPT>
+<!-- And this is the menu driving code which Fireworks exported along with the okmenu.htm file (the latter which we don't use any more). Might have to update this in the future -->
+<SCRIPT language=JavaScript1.2 
+src="PLY (Stanford) Geometry Export Converter_files/mm_menu.js"></SCRIPT>
+<!-- Preload the menu images -->
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY vLink=#cc1100 link=#336699 bgColor=#ffffff leftMargin=0 topMargin=0 
+onload="MM_preloadImages('/menus/news_f2.gif','/menus/news_f4.gif','/menus/news_f3.gif','/menus/products_f2.gif','/menus/products_f4.gif','/menus/products_f3.gif','/menus/solutions_f2.gif','/menus/solutions_f4.gif','/menus/solutions_f3.gif','/menus/download_f2.gif','/menus/download_f4.gif','/menus/download_f3.gif','/menus/quikinfo_f2.gif','/menus/quikinfo_f4.gif','/menus/quikinfo_f3.gif','/menus/sales_f2.gif','/menus/sales_f4.gif','/menus/sales_f3.gif','/menus/support_f2.gif','/menus/support_f4.gif','/menus/support_f3.gif','/menus/develop_f2.gif','/menus/develop_f4.gif','/menus/develop_f3.gif','/menus/company_f2.gif','/menus/company_f4.gif','/menus/company_f3.gif','/templates/images/divider.gif');" 
+marginheight="0" marginwidth="0"><!-- Make sure this comes right after the opening body tag -->
+<SCRIPT language=JavaScript1.2>mmLoadMenus();</SCRIPT>
+<!-- Top static banner -->
+<TABLE class=topbannerbackground cellSpacing=0 cellPadding=0 width="100%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD><A href="http://www.okino.com/index.htm"><IMG height=62 alt="" 
+      src="PLY (Stanford) Geometry Export Converter_files/okino_masthead.gif" 
+      width=505 align=left border=0></A></TD><!-- We need 'middle' alignment so that the top-right contents will move appropriately when the browser width is around 800 pixels -->
+    <SCRIPT language=JavaScript><!--
+	if (is.ns2 || is.ns3 || is.ns4) {
+	document.write("<td align=middle>")
+	} else {
+	document.write("<td align=middle background='/templates/images/top-stipple-tile.gif'>")
+	}//--></SCRIPT>
+  </TR></TBODY></TABLE>
+<TABLE cellSpacing=0 cellPadding=1 border=0>
+  <FORM action=/cgi-bin/search/search.pl method=post><INPUT type=hidden value=1 
+  name=Match> <!-- Spacer at top-right (row 1 of 3) -->
+  <SCRIPT language=JavaScript><!--
+			if (!(is.ns2 || is.ns3 || is.ns4)) {
+			document.write("<tr><td colspan=6><img src='/templates/images/blank.gif' height=1></td></tr>")
+			}//--></SCRIPT>
+<!-- Start of the House/Email/Search Fields as the 2nd row of the right-most expandable table --><!-- NOTE: When converting the .psd file to .gif, set the background colour to (30, 86, 144) then convert to GIF using "Local Adaptive" palette, "Transparency" enabled and Matte = "Foreground color" -->
+  <TBODY>
+  <TR>
+    <TD><A 
+      onmouseover="MM_swapImage('house','','/templates/topnav/house_white.gif',1)" 
+      onmouseout=MM_swapImgRestore() href="http://www.okino.com/"><IMG height=26 
+      alt="Go to Okino Home Page" 
+      src="PLY (Stanford) Geometry Export Converter_files/house_tinted.gif" 
+      width=26 border=0 name=house></A></TD>
+    <TD><A 
+      onmouseover="MM_swapImage('contact','','/templates/topnav/email_white.gif',1)" 
+      onmouseout=MM_swapImgRestore() href="http://www.okino.com/okino.htm"><IMG 
+      height=26 alt="Contact Okino" 
+      src="PLY (Stanford) Geometry Export Converter_files/email_tinted.gif" 
+      width=26 border=0 name=contact></A></TD>
+    <TD><IMG src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+      width=4></TD>
+    <TD><INPUT class=searchbox style="FONT-SIZE: 12px; HEIGHT: 20px" 
+      onfocus="this.value=''" size=15 name=Terms></TD>
+    <TD><INPUT class=searchbutton style="FONT-SIZE: 12px; HEIGHT: 20px" type=submit value=Search name=searchbutton></TD>
+    <TD><IMG src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+      width=5></TD></TR><!-- "Production Tools" text as an image --><!-- NOTE: When converting the .psd file to .gif, set the background colour to (30, 86, 144)
+			then convert to GIF using "Local Adaptive" palette, "Transparency" enabled and Matte = "Foreground color" -->
+  <TR>
+    <TD align=middle colSpan=6><IMG height=26 
+      src="PLY (Stanford) Geometry Export Converter_files/production_tools_title2.gif" 
+      width=233 border=0></TD></TR></FORM></TBODY></TABLE></TD></TR></TABLE><!-- RCL: Start of partial inserted Firework menus -->
+<SCRIPT language=JavaScript><!--
+if (is.ns2 || is.ns3 || is.ns4) {
+document.write("<table border=0 cellpadding=0 cellspacing=0 width=100% bgcolor=#19497B background='/menus/repeater.gif'> ")
+} else {
+document.write("<table border=0 cellpadding=0 cellspacing=0 width=100% background='/menus/repeater.gif'>")
+}//--></SCRIPT>
+<TR><TD width="24"><IMG height=17 alt="" hspace=0 
+src="PLY (Stanford) Geometry Export Converter_files/okmenu_r1_c1.gif" width=24 
+border=0 name=/menus/okmenu_r1_c1></TD> <TD width="80"><A 
+onmouseover="MM_nbGroup('over','news','/menus/news_f2.gif','/menus/news_f4.gif',1);" 
+onclick="MM_nbGroup('down','navbar1','news','/menus/news_f3.gif',1);" 
+onmouseout="MM_nbGroup('out');" 
+href="http://www.okino.com/default.htm#okinonews"><IMG height=17 alt="" hspace=0 
+src="PLY (Stanford) Geometry Export Converter_files/news.gif" width=80 border=0 
+name=news></A></TD> <TD width="1"><IMG height=17 alt="" hspace=0 
+src="PLY (Stanford) Geometry Export Converter_files/okmenu_r1_c3.gif" width=1 
+border=0 name=/menus/okmenu_r1_c3></TD> <TD width="80"><A 
+onmouseover="MM_showMenu(window.mm_menu_1106022445_0,0,18,null,'products');MM_nbGroup('over','products','/menus/products_f2.gif','/menus/products_f4.gif',1);" 
+onclick="MM_nbGroup('down','navbar1','products','/menus/products_f3.gif',1);" 
+onmouseout="MM_nbGroup('out');MM_startTimeout();" 
+href="http://www.okino.com/products.htm"><IMG height=17 alt="" hspace=0 
+src="PLY (Stanford) Geometry Export Converter_files/products.gif" width=80 
+border=0 name=products></A></TD> <TD width="1"><IMG height=17 alt="" hspace=0 
+src="PLY (Stanford) Geometry Export Converter_files/okmenu_r1_c5.gif" width=1 
+border=0 name=/menus/okmenu_r1_c5></TD> <!--
+<td width=80><a href="/solutions/solutions.htm" target="_top" onClick="MM_nbGroup('down','navbar1','solutions','/menus/solutions_f3.gif',1);" onMouseOver="MM_nbGroup('over','solutions','/menus/solutions_f2.gif','/menus/solutions_f4.gif',1)" onMouseOut="MM_nbGroup('out')"><img name="solutions" src="/menus/solutions.gif" width="80" height="17" border="0" alt="" hspace=0></a></td>
+<td width=1><img name="/menus/okmenu_r1_c7" src="/menus/okmenu_r1_c7.gif" width="1" height="17" border="0" alt=""></td>
+--><TD width="80"><A 
+onmouseover="MM_nbGroup('over','download','/menus/download_f2.gif','/menus/download_f4.gif',1)" 
+onclick="MM_nbGroup('down','navbar1','download','/menus/download_f3.gif',1);" 
+onmouseout="MM_nbGroup('out')" href="http://www.okino.com/conv/demos.htm" 
+target=_top><IMG height=17 alt="" 
+src="PLY (Stanford) Geometry Export Converter_files/download.gif" width=80 
+border=0 name=download></A></TD> <TD width="1"><IMG height=17 alt="" 
+src="PLY (Stanford) Geometry Export Converter_files/okmenu_r1_c9.gif" width=1 
+border=0 name=/menus/okmenu_r1_c9></TD> <TD width="80"><A 
+onmouseover="MM_showMenu(window.mm_menu_1106023913_3,0,18,null,'quikinfo');MM_nbGroup('over','quikinfo','/menus/quikinfo_f2.gif','/menus/quikinfo_f4.gif',1);" 
+onclick="MM_nbGroup('down','navbar1','quikinfo','/menus/quikinfo_f3.gif',1);" 
+onmouseout="MM_nbGroup('out');MM_startTimeout();" href="javascript:;" 
+target=_top><IMG height=17 alt="" 
+src="PLY (Stanford) Geometry Export Converter_files/quikinfo.gif" width=80 
+border=0 name=quikinfo></A></TD> <TD width="1"><IMG height=17 alt="" 
+src="PLY (Stanford) Geometry Export Converter_files/okmenu_r1_c11.gif" width=1 
+border=0 name=/menus/okmenu_r1_c11></TD> <TD width="80"><A 
+onmouseover="MM_showMenu(window.mm_menu_1106025349_4,0,18,null,'sales');MM_nbGroup('over','sales','/menus/sales_f2.gif','/menus/sales_f4.gif',1);" 
+onclick="MM_nbGroup('down','navbar1','sales','/menus/sales_f3.gif',1);" 
+onmouseout="MM_nbGroup('out');MM_startTimeout();" 
+href="http://www.okino.com/conv/order/order.htm" target=_top><IMG height=17 
+alt="" src="PLY (Stanford) Geometry Export Converter_files/sales.gif" width=80 
+border=0 name=sales></A></TD> <TD width="1"><IMG height=17 alt="" 
+src="PLY (Stanford) Geometry Export Converter_files/okmenu_r1_c13.gif" width=1 
+border=0 name=/menus/okmenu_r1_c13></TD> <TD width="80"><A 
+onmouseover="MM_showMenu(window.mm_menu_1106024606_4,0,18,null,'support');MM_nbGroup('over','support','/menus/support_f2.gif','/menus/support_f4.gif',1);" 
+onclick="MM_nbGroup('down','navbar1','support','/menus/support_f3.gif',1);" 
+onmouseout="MM_nbGroup('out');MM_startTimeout();" 
+href="http://www.okino.com/support.htm"><IMG height=17 alt="" 
+src="PLY (Stanford) Geometry Export Converter_files/support.gif" width=80 
+border=0 name=support></A></TD> <TD width="1"><IMG height=17 alt="" 
+src="PLY (Stanford) Geometry Export Converter_files/okmenu_r1_c15.gif" width=1 
+border=0 name=/menus/okmenu_r1_c15></TD> <TD width="80"><A 
+onmouseover="MM_showMenu(window.mm_menu_1106024806_5,0,18,null,'develop');MM_nbGroup('over','develop','/menus/develop_f2.gif','/menus/develop_f4.gif',1);" 
+onclick="MM_nbGroup('down','navbar1','develop','/menus/develop_f3.gif',1);" 
+onmouseout="MM_nbGroup('out');MM_startTimeout();" 
+href="http://www.okino.com/plugin_sdk/plugin_sdk.htm" target=_top><IMG height=17 
+alt="" src="PLY (Stanford) Geometry Export Converter_files/develop.gif" width=80 
+border=0 name=develop></A></TD> <TD width="1"><IMG height=17 alt="" 
+src="PLY (Stanford) Geometry Export Converter_files/okmenu_r1_c17.gif" width=1 
+border=0 name=/menus/okmenu_r1_c17></TD> <TD width="80"><A 
+onmouseover="MM_showMenu(window.mm_menu_1106024858_6,0,18,null,'company');MM_nbGroup('over','company','/menus/company_f2.gif','/menus/company_f4.gif',1);" 
+onclick="MM_nbGroup('down','navbar1','company','/menus/company_f3.gif',1);" 
+onmouseout="MM_nbGroup('out');MM_startTimeout();" 
+href="http://www.okino.com/okino.htm" target=_top><IMG height=17 alt="" 
+src="PLY (Stanford) Geometry Export Converter_files/company.gif" width=80 
+border=0 name=company></A></TD> <TD width="1"><IMG height=17 alt="" 
+src="PLY (Stanford) Geometry Export Converter_files/okmenu_r1_c17.gif" width=1 
+border=0 name=/menus/okmenu_r1_c17></TD> <TD width="100%"><IMG height=17 alt="" 
+src="PLY (Stanford) Geometry Export Converter_files/repeater.gif" width="100%" 
+border=0 name=/menus/okmenu_r1_c19></TD> </TR></TABLE><!-- RCL: End of inserted Firework menus --><!-- This is the bread crumb line -->
+<TABLE class=tilestiple cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <SCRIPT language=JavaScript><!--
+if (!(is.ns2 || is.ns3 || is.ns4)) {
+document.write("<tr><td><img src='/templates/images/blank.gif' height=1 nowrap></td></tr>")
+}//--></SCRIPT>
+
+  <TBODY>
+  <TR>
+    <TD vAlign=top noWrap align=right><SPAN class=crumb-youarehere>You are 
+      here: &nbsp;</SPAN> <A class=crumb 
+      href="http://www.okino.com/default.htm">Home</A>&nbsp;<SPAN 
+      class=crumbseperator><B>»</B></SPAN>&nbsp;<A class=crumb 
+      href="http://www.okino.com/products.htm"> Products</A>&nbsp;<SPAN 
+      class=crumbseperator><B>»</B></SPAN>&nbsp;<A class=crumb 
+      href="http://www.okino.com/conv/conv.htm?0"> PolyTrans</A> &nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top align=left width="100%"><IMG height=3 
+      src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+  width=15></TD></TR></TBODY></TABLE><!-- Left-side navigation and right-side text area -->
+<TABLE class=sidebar height="100%" cellSpacing=0 cellPadding=0 width="100%" 
+border=0><!-- Dashed separator at top of main text area -->
+  <SCRIPT language=JavaScript><!--
+if (!(is.ns2 || is.ns3 || is.ns4)) {
+document.write("<tr>")
+document.write("<td align='left' valign='top' ><img src='/templates/images/blank.gif' width='15' height='1'></td>")
+document.write("<td align='left' valign='top' ><img src='/templates/images/blank.gif' width='15' height='1'></td>")
+document.write("<td colspan=2 align='left' valign='top' bgcolor='#FFFFFF' class='repeated-dashed-seperator'><img src='/templates/images/blank.gif' width=100% height='4'></td>")
+document.write("</tr>")
+}//--></SCRIPT>
+<!-- Side bar and main text area -->
+  <TBODY>
+  <TR>
+    <TD vAlign=top align=left>
+      <TABLE class=sidebar cellSpacing=0 cellPadding=0 width=120 border=0>
+        <TBODY>
+        <TR>
+          <TD align=right><IMG 
+            src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+            width=10 border=0></TD>
+          <TD width="100%"><A class=item0 
+            href="http://www.okino.com/templates/sitemap.htm">Site Map</A></TD></TR>
+        <TR>
+          <TD><IMG 
+            src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+            width=10 border=0></TD>
+          <TD align=left><IMG 
+            src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+        <TR>
+          <TD vAlign=center><IMG 
+            src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+            width=10 border=0></TD>
+          <TD vAlign=center align=right>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD align=right><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD width="100%"><A class=item0 
+                  href="http://www.okino.com/default.htm">Okino Home 
+              Page</A></TD></TR>
+              <TR>
+                <TD><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD align=left><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+              <TR>
+                <TD align=right><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD width="100%"><A class=level1 
+                  href="http://www.okino.com/products.htm">Products</A></TD></TR>
+              <TR>
+                <TD vAlign=center><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD vAlign=center align=right>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD align=right><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/arrow.gif" 
+                        border=0></TD>
+                      <TD width="100%"><A class=level2 
+                        href="http://www.okino.com/conv/conv.htm?0">PolyTrans</A></TD></TR>
+                    <TR>
+                      <TD vAlign=center><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                        width=10 border=0></TD>
+                      <TD vAlign=center align=right>
+                        <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD align=right><IMG 
+                              src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                              width=10 border=0></TD>
+                            <TD width="100%"><A class=level3 
+                              href="http://www.okino.com/conv/conv.htm?1">Description</A></TD></TR>
+                          <TR>
+                            <TD align=right><IMG 
+                              src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                              width=10 border=0></TD>
+                            <TD width="100%"><A class=level3 
+                              href="http://www.okino.com/version_comparisons.htm?0">Feature 
+                              Comparisons</A></TD></TR>
+                          <TR>
+                            <TD align=right><IMG 
+                              src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                              width=10 border=0></TD>
+                            <TD width="100%"><A class=level3 
+                              href="http://www.okino.com/conv/filefrmt.htm?0">3D 
+                              File Formats</A></TD></TR>
+                          <TR>
+                            <TD align=right><IMG 
+                              src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                              width=10 border=0></TD>
+                            <TD width="100%"><A class=level3 
+                              href="http://www.okino.com/third_party_plugin_modules.htm?0">Plug-In 
+                              Modules</A></TD></TR>
+                          <TR>
+                            <TD align=right><IMG 
+                              src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                              width=10 border=0></TD>
+                            <TD width="100%"><A class=level3 
+                              href="http://www.okino.com/conv/users.htm?0">Notable 
+                              Users</A></TD></TR>
+                          <TR>
+                            <TD align=right><IMG 
+                              src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                              width=10 border=0></TD>
+                            <TD width="100%"><A class=level3 
+                              href="http://www.okino.com/new/brochures/index.htm?0">Brochures</A></TD></TR>
+                          <TR>
+                            <TD align=right><IMG 
+                              src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                              width=10 border=0></TD>
+                            <TD width="100%"><A class=level3 
+                              href="http://www.okino.com/testimon.htm?0">Testimonials</A></TD></TR></TBODY></TABLE></TD></TR>
+                    <TR>
+                      <TD><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                        width=10 border=0></TD>
+                      <TD align=left><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+                    <TR>
+                      <TD align=right><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                        width=10 border=0></TD>
+                      <TD width="100%"><A class=level2 
+                        href="http://www.okino.com/nrs/nrs.htm?0">NuGraf</A></TD></TR>
+                    <TR>
+                      <TD><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                        width=10 border=0></TD>
+                      <TD align=left><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+                    <TR>
+                      <TD align=right><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                        width=10 border=0></TD>
+                      <TD width="100%"><A class=level2 
+                        href="http://www.okino.com/conv/pt4maya.htm">PolyTrans-for-Maya</A></TD></TR>
+                    <TR>
+                      <TD align=right><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                        width=10 border=0></TD>
+                      <TD width="100%"><A class=level2 
+                        href="http://www.okino.com/conv/pt4max.htm">PolyTrans-for-MAX</A></TD></TR>
+                    <TR>
+                      <TD align=right><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                        width=10 border=0></TD>
+                      <TD width="100%"><A class=level2 
+                        href="http://www.okino.com/conv/pt4xsi.htm">PolyTrans-for-XSI</A></TD></TR>
+                    <TR>
+                      <TD align=right><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                        width=10 border=0></TD>
+                      <TD width="100%"><A class=level2 
+                        href="http://www.okino.com/conv/pt4director.htm">PolyTrans-for-Director</A></TD></TR>
+                    <TR>
+                      <TD><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                        width=10 border=0></TD>
+                      <TD align=left><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+                    <TR>
+                      <TD align=right><IMG 
+                        src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                        width=10 border=0></TD>
+                      <TD width="100%"><A class=level2 
+                        href="http://www.okino.com/new/toolkit/index.htm?0">NuGraf 
+                        3D Toolkit</A></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD align=left><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+              <TR>
+                <TD align=right><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD width="100%"><A class=level1 
+                  href="http://www.okino.com/proe.htm?0">Specialized 
+                Sections</A></TD></TR>
+              <TR>
+                <TD><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD align=left><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+              <TR>
+                <TD align=right><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD width="100%"><A class=level1 
+                  href="http://www.okino.com/mainpic.htm?0">Image 
+                Galleries</A></TD></TR>
+              <TR>
+                <TD><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD align=left><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+              <TR>
+                <TD align=right><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD width="100%"><A class=level1 
+                  href="http://www.okino.com/conv/demos.htm">Download 
+                Demos</A></TD></TR>
+              <TR>
+                <TD><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD align=left><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+              <TR>
+                <TD align=right><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD width="100%"><A class=level1 
+                  href="http://www.okino.com/conv/order/order.htm?0">Sales/Ordering</A></TD></TR>
+              <TR>
+                <TD><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD align=left><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+              <TR>
+                <TD align=right><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD width="100%"><A class=level1 
+                  href="http://www.okino.com/support.htm?0">Support &amp; 
+                  Updates</A></TD></TR>
+              <TR>
+                <TD><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD align=left><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+              <TR>
+                <TD align=right><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD width="100%"><A class=level1 
+                  href="http://www.okino.com/plugin_sdk/plugin_sdk.htm?0">Developer 
+                  Info</A></TD></TR>
+              <TR>
+                <TD><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD align=left><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+              <TR>
+                <TD align=right><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD width="100%"><A class=level1 
+                  href="http://www.okino.com/press/releases.htm?0">Press 
+                Info</A></TD></TR>
+              <TR>
+                <TD><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD align=left><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+              <TR>
+                <TD align=right><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD width="100%"><A class=level1 
+                  href="http://www.okino.com/okino.htm">Contact Okino</A></TD></TR>
+              <TR>
+                <TD><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD align=left><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR>
+              <TR>
+                <TD align=right><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD width="100%"><A class=level1 
+                  href="http://www.okino.com/links.htm">Links</A></TD></TR>
+              <TR>
+                <TD><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+                  width=10 border=0></TD>
+                <TD align=left><IMG 
+                  src="PLY (Stanford) Geometry Export Converter_files/divider.gif"></TD></TR></TD></TR></TBODY></TABLE></TR></TBODY></TABLE>
+      <TABLE class=contacttext cellSpacing=10 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD class=contacttext>Sales: 1-888-3D-OKINO<BR>Support: 
+            905-672-9328<BR><BR>Copyright © 2006 <A class=level0 
+            href="http://www.okino.com/okino.htm">Okino</A><BR>Toronto, Ontario, 
+            Canada.<BR></TD></TR></TBODY></TABLE></TD>
+    <TD class=sidebar vAlign=top align=left><IMG height=1 
+      src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+width=15></TD>
+    <TD class=dashed-seperator vAlign=top align=left bgColor=#ffffff><IMG 
+      height=1 src="PLY (Stanford) Geometry Export Converter_files/blank.gif" 
+      width=10></TD>
+    <TD class=mainarea vAlign=top align=left bgColor=#ffffff><BR><!-- START OF INSERTED HTML PAGE -->
+      <CENTER>
+      <TABLE cellSpacing=0 cellPadding=0 border=0 <tr>
+        <TBODY>
+        <TR>
+          <TD><IMG height=66 hspace=10 
+            src="PLY (Stanford) Geometry Export Converter_files/geomexp.gif" 
+            width=154></TD>
+          <TD>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD class=headline><I>PLY (Stanford) File 
+              Exporter</I></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></CENTER>
+      <BLOCKQUOTE>
+        <P>This geometry export converter writes out scenes in the Stanford PLY 
+        ASCII file format, including mesh attributes such as vertex normals, 
+        vertex colors and vertex texture coordinates. An optional material 
+        element can also be exported. 
+        <P>Please also refer to the corresponding <A 
+        href="http://www.okino.com/conv/imp_ply.htm">PLY file importer</A>. 
+        <P>The PLY format describes an object as a collection of vertices, faces 
+        and other elements, along with properties such as color and normal 
+        direction that can be attached to these elements. A PLY file contains 
+        the description of exactly one object. Sources of such objects include: 
+        hand-digitized objects, polygon objects from modeling programs, range 
+        data, triangles from marching cubes (isosurfaces from volume data), 
+        terrain data, radiosity models. Properties that might be stored with the 
+        object include: color, surface normals, texture coordinates, 
+        transparency, range data confidence, and different properties for the 
+        front and back of a polygon. 
+        <P>The PLY format is NOT intended to be a general scene description 
+        language, a shading language or a catch-all modeling format. This means 
+        that it includes no transformation matrices, object instantiation, 
+        modeling hierarchies, or object sub-parts. It does not include 
+        parametric patches, quadric surfaces, constructive solid geometry 
+        operations, triangle strips, polygons with holes, or texture 
+        descriptions. 
+        <P>A typical PLY object definition is simply a list of (x,y,z) triples 
+        for vertices and a list of faces that are described by indices into the 
+        list of vertices. Most PLY files include this core information. Vertices 
+        and faces are two examples of "elements", and the bulk of a PLY file is 
+        its list of elements. Each element in a given file has a fixed number of 
+        "properties" that are specified for each element. The typical 
+        information in a PLY file contains just two elements, the (x,y,z) 
+        triples for vertices and the vertex indices for each face. Applications 
+        can create new properties that are attached to elements of an object. 
+        For example, the properties red, green and blue are commonly associated 
+        with vertex elements. New properties are added in such a way that old 
+        programs do not break when these new properties are encountered. 
+        Properties that are not understood by a program can either be carried 
+        along uninterpreted or can be discarded. In addition, one can create a 
+        new element type and define the properties associated with this element. 
+        Examples of new elements are edges, cells (lists of pointers to faces) 
+        and materials (ambient, diffuse and specular colors and coefficients). 
+        New elements can also be carried along or discarded by programs that do 
+        not understand them. </P></BLOCKQUOTE>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD class=section><IMG height=11 hspace=2 
+            src="PLY (Stanford) Geometry Export Converter_files/more2.gif" 
+            width=21 align=abstop border=0>&nbsp;Limitations of the PLY File 
+            Format</TD></TR></TBODY></TABLE>
+      <UL>
+        <LI>PLY is mean to be a simple, easily parsable file format and hence 
+        only conveys basic geometry information. <BR><BR>
+        <LI>Only one object definition can be specified per PLY file. Hence, an 
+        entire 3D scene may require more than one PLY file to be exported. 
+        <BR><BR>
+        <LI>No material definitions are standardized in the PLY format. <BR><BR>
+        <LI>No lights, cameras, hierarchy, animation are provided by the PLY 
+        file format. </LI></UL>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD class=section><IMG height=11 hspace=2 
+            src="PLY (Stanford) Geometry Export Converter_files/more2.gif" 
+            width=21 align=abstop border=0>&nbsp;Exported PLY Element 
+        Types</TD></TR></TBODY></TABLE>
+      <BLOCKQUOTE>The following table describes the element types that are 
+        exported. <PRE>Element Type	Properties
+
+Face		Index list
+Vertex		"x", "y" and "z" vertex coordinates
+Vertex		"nx", "ny" and "nz" vertex normals
+Vertex		"u" and "v" vertex texture coordinates
+Vertex		"red", "green" and "blue" vertex colors 
+		(0..255 integers or 0..1 normalized)
+</PRE></BLOCKQUOTE>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD class=section><IMG height=11 hspace=2 
+            src="PLY (Stanford) Geometry Export Converter_files/more2.gif" 
+            width=21 align=abstop border=0>&nbsp;Custom Material 
+        Element</TD></TR></TBODY></TABLE>
+      <BLOCKQUOTE>While not common nor standardized in PLY files, this 
+        exporter has an option to output a "material" element per PLY file. 
+        <P>The syntax for the "material" element is as follows (this element 
+        defines "1" material in the PLY file). The "specular_power" is assumed 
+        to lie between 0.0 and 1.0. The opacity is assumed to lie between 0.0 
+        and 1.0. Each color coefficient must lie between 0.0 and 1.0. <PRE>element material 1
+property uchar ambient_red     
+property uchar ambient_green 
+property uchar ambient_blue 
+property float ambient_coeff
+property uchar diffuse_red         
+property uchar diffuse_green 
+property uchar diffuse_blue 
+property float diffuse_coeff 
+property uchar specular_red        
+property uchar specular_green 
+property uchar specular_blue 
+property float specular_coeff
+property float specular_power   
+property float opacity  
+</PRE>
+        <P>For example, the following PLY file defines a cube with vertex colors 
+        and one material assignment. <PRE>ply
+format ascii 1.0
+comment made by Greg Turk
+comment this file is a cube
+element vertex 8      
+property float x        
+property float y       
+property float z       
+element face 6          
+property list uchar int vertex_indices
+element material 1
+property uchar ambient_red     
+property uchar ambient_green 
+property uchar ambient_blue 
+property float ambient_coeff
+property uchar diffuse_red         
+property uchar diffuse_green 
+property uchar diffuse_blue 
+property float diffuse_coeff 
+property uchar specular_red        
+property uchar specular_green 
+property uchar specular_blue 
+property float specular_coeff
+property float specular_power   
+property float opacity   
+end_header             
+0 0 0             
+0 0 1
+0 1 1
+0 1 0
+1 0 0
+1 0 1
+1 1 1
+1 1 0
+4 0 1 2 3          
+4 7 6 5 4
+4 0 4 5 1
+4 1 5 6 2
+4 2 6 7 3
+4 3 7 4 0
+255 255 255 0.3 255 255 255 0.4 255 255 255 0.6 0.4 1.0
+</PRE></BLOCKQUOTE><!--------------->
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD class=dialogboxdescription><IMG height=11 hspace=2 
+            src="PLY (Stanford) Geometry Export Converter_files/more2.gif" 
+            width=21 align=abstop border=0>&nbsp;Dialog Box 
+      Options</TD></TR></TBODY></TABLE>
+      <BLOCKQUOTE>
+        <P><IMG src="PLY (Stanford) Geometry Export Converter_files/exp_ply.gif" 
+        border=0> 
+        <P><B>Filename naming method</B> 
+        <BLOCKQUOTE>If the "Output entire scene as one single PLY file" option 
+          is disabled then these radio buttons determine how each PLY file will 
+          be named on disk. The PLY file format only allows a single object to 
+          be stored in each PLY file, and hence many PLY files will be written 
+          to disk to store all the objects in the scene. 
+          <P><B>Use name of each object as filename</B> 
+          <BLOCKQUOTE>The filename of each PLY file will be given the 
+            corresponding name of the 3D object definition inside the scene. For 
+            example, if the scene has 2 objects called "ball" and "bat" then 
+            these objects will be saved to disk as 2 PLY files called "ball.ply" 
+            and "bat.ply". </BLOCKQUOTE>
+          <P><B>Use filename chosen via filename selector</B> 
+          <BLOCKQUOTE>The filename of each PLY file will be given the same 
+            name, as you had chosen on the Save-As file selector. For example, 
+            if you choose the export filename to be "Building.ply" then each PLY 
+            filename written to disk will use the names of "Building.ply", 
+            "Building2.ply", "Building3.ply", etc. </BLOCKQUOTE></BLOCKQUOTE>
+        <P><B>Output entire scene as one single PLY file</B> 
+        <BLOCKQUOTE>If this checkbox is checkmarked then the entire scene will 
+          be compressed and output to a single PLY file. Normally each and every 
+          object has to be exported to its own PLY file, potentially creating 
+          many PLY files on disk, so this checkbox is enabled by default so that 
+          all objects get output to a single PLY file. </BLOCKQUOTE>
+        <P><B>Write PLY files to new sub-directory</B> 
+        <BLOCKQUOTE>If this checkbox is checkmarked then all the new PLY files 
+          will be written to a new sub-directory, named after the chosen PLY 
+          file. This should be enabled when the "Output entire scene as one 
+          single PLY file" option is disabled, since many PLY files will 
+          probably be written to disk. </BLOCKQUOTE>
+        <P><B>ASCII Line Terminator Type: CR/LF, LF, CR</B> 
+        <BLOCKQUOTE>These radio buttons determine which kind of line 
+          terminator will be used. CR/LF is used for PC machines, LF for UNIX 
+          and CR for Macintosh. </BLOCKQUOTE>
+        <P><B>Confirm file overwrites</B> 
+        <BLOCKQUOTE>If this checkbox is checkmarked then the user will be 
+          prompted first prior to existing PLY files on disk being overwritten. 
+        </BLOCKQUOTE>
+        <P><B>Flip 'Y' up to 'Z' up coordinate system</B> 
+        <BLOCKQUOTE>If this checkbox is checkmarked then the internal 3D scene 
+          will be flipped so that "Z" is the up axis. All Okino scenes always 
+          use a "Y" up axis, however many PLY files use a "Z" up axis, so this 
+          option is enabled by default. </BLOCKQUOTE>
+        <P><B>Output mesh data</B> 
+        <BLOCKQUOTE>If this checkbox is checkmarked then mesh geometry will be 
+          exported. This should always be enabled. 
+          <P><B>Output vertex normals</B> 
+          <BLOCKQUOTE>If this checkbox is checkmarked then vertex normals will 
+            be exported along with the mesh geometry. </BLOCKQUOTE>
+          <P><B>Output u,v texture map coordinates</B> 
+          <BLOCKQUOTE>If this checkbox is checkmarked then (u,v) vertex 
+            texture coordinates will be exported along with the mesh geometry. 
+          </BLOCKQUOTE>
+          <P><B>Output vertex colors</B> 
+          <BLOCKQUOTE>If this checkbox is checkmarked then all the colors 
+            assigned to each and every vertex will be exported along with the 
+            mesh geometry. </BLOCKQUOTE>
+          <P><B>Want convex polygons only</B> 
+          <BLOCKQUOTE>Checkmark this checkbox to cause non-convex polygons to 
+            become triangulated </BLOCKQUOTE>
+          <P><B>Want quadrilateral polygons only</B> 
+          <BLOCKQUOTE>Checkmark this checkbox to cause 5 or more sided 
+            polygons to become triangulated </BLOCKQUOTE>
+          <P><B>Want triangles only</B> 
+          <BLOCKQUOTE>Checkmark this checkbox to cause 4 or more sided 
+            polygons to become triangulated </BLOCKQUOTE>
+          <P><B>Enable polygon reduction</B> 
+          <BLOCKQUOTE>If this checkbox is enabled (check-marked) then the PLY 
+            exporter will apply the global polygon reduction algorithm to each 
+            mesh object just prior to them being embedded in the PLY file. 
+            <P>The algorithm allows the number of polygons in the scene to be 
+            greatly reduced. The parameters used to reduce the polygons can be 
+            modified by pressing the "Set Options" button. Press the "Help" 
+            button on its corresponding dialog box to learn more about the 
+            polygon reduction system. </P></BLOCKQUOTE></BLOCKQUOTE>
+        <P><B>Output materials ('surface' definitions)</B> 
+        <BLOCKQUOTE>If this checkbox is checkmarked then a "Material" element 
+          will be exported at the end of each PLY file. This option only truly 
+          makes sense if the "Output entire scene as one single PLY file" option 
+          is disabled. </BLOCKQUOTE></BLOCKQUOTE><!-- PHP ending data -->
+      <BLOCKQUOTE></BLOCKQUOTE>
+      <BLOCKQUOTE></BLOCKQUOTE>
+      <TABLE class=pagebottom cellSpacing=0 cellPadding=0 width="100%" 
+      bgColor=#326ba3 border=0>
+        <TBODY>
+        <TR>
+          <TD class=pagebottom style="FONT-SIZE: 10px; COLOR: #ededed" 
+          align=middle>&nbsp;&nbsp;<A class=pagebottom 
+            href="http://www.okino.com/okino.htm">Contact Okino</A> <FONT 
+            style="FONT-SIZE: 12px; COLOR: #ffffff">|</FONT> <A class=pagebottom 
+            href="http://www.okino.com/copyrite.htm">Legal &amp; Privacy</A> 
+            <FONT style="FONT-SIZE: 12px; COLOR: #ffffff">|</FONT> <A 
+            class=pagebottom 
+            href="http://www.okino.com/products.htm">Products</A> <FONT 
+            style="FONT-SIZE: 12px; COLOR: #ffffff">|</FONT> <A class=pagebottom 
+            href="http://www.okino.com/conv/demos.htm">Download Demos</A> <FONT 
+            style="FONT-SIZE: 12px; COLOR: #ffffff">|</FONT> <A class=pagebottom 
+            href="http://www.okino.com/conv/order/order.htm">Purchase</A>&nbsp;&nbsp;</TD></TR></TBODY></TABLE><BR><!-- This PHP code is included by every HTML page to end off the page.The table 'end' here is for the main text area --></TD></TR></TBODY></TABLE></BODY></HTML>
