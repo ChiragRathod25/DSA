@@ -1,6 +1,9 @@
 // link : https://www.codechef.com/problems/TRANCST
-#include <bits/stdc++.h>
+#include <iostream>
+#include <cmath>
+#include <string>
 using namespace std;
+
 int cost(int x)
 {
   return pow(2,x);
