@@ -1,0 +1,25 @@
+LinkedList - Stack, queue using linkedList
+Queue - linear, circular- front and rear
+Trees - Non linear Data structure
+	- Binary search tree - append, traversal (3 types), deletion
+	- Arithmetic tree
+	- Huffmen coding
+	- Binary tree with father field
+	- Height balance, strict binary, alamost complete, not complete - theory
+	- AVL trees - rotation, add operations
+	- Top down multi way search tree
+	- Binary search tree order -2,3,4etc
+	- Application of tree - Game tree
+	- B+ tree
+
+Sorting - Bubble sort
+	- time complexibility
+	- Insertion sort
+	- quick sort
+
+
+
+//reference Links
+Hight Balance Binary tree - https://www.geeksforgeeks.org/introduction-to-height-balanced-binary-tree/
+Types - https://www.geeksforgeeks.org/types-of-binary-tree/
+complete Binary tree - https://www.geeksforgeeks.org/complete-binary-tree/
