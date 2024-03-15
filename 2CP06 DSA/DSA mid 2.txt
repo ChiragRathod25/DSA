@@ -13,7 +13,7 @@ Trees - Non linear Data structure
 	- B+ tree
 
 Sorting - Bubble sort
-	- time complexibility
+	- time complexibility- BigO
 	- Insertion sort
 	- quick sort
 
