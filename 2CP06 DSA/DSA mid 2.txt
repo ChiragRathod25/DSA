@@ -21,5 +21,12 @@ Sorting - Bubble sort
 
 //reference Links
 Hight Balance Binary tree - https://www.geeksforgeeks.org/introduction-to-height-balanced-binary-tree/
+
 Types - https://www.geeksforgeeks.org/types-of-binary-tree/
 complete Binary tree - https://www.geeksforgeeks.org/complete-binary-tree/
+
+
+//programs to do for mid 2
+-queue using LinkedList
+-queue using Array
+- 
