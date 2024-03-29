@@ -10,7 +10,7 @@ int windowHeight = 480;     // Windowed mode's height
 int windowPosX   = 50;      // Windowed mode's top-left corner x
 int windowPosY   = 50;      // Windowed mode's top-left corner y
  
-GLfloat ballRadius = 0.5f;   // Radius of the bouncing ball
+GLfloat ballRadius = 0.5f;    // Radius of the bouncing ball
 GLfloat ballX = 0.0f;         // Ball's center (x, y) position
 GLfloat ballY = 0.0f;
 GLfloat ballXMax, ballXMin, ballYMax, ballYMin; // Ball's center (x, y) bounds
