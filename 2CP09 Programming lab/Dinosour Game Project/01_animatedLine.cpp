@@ -6,6 +6,8 @@
 #include <GL/glut.h> // GLUT, include glu.h and gl.h
 #include <Math.h>    // Needed for sin, cos
 #include <iostream>
+#include <string.h> // for strlen
+
 #define PI 3.14159265f
 using namespace std;
 // global variable
@@ -13,11 +15,11 @@ GLfloat angle = 0.0f;
 int refreshMills = 100; // refresh interval in milliseconds
 GLfloat xCoordinate = -1.0f;
 
-GLfloat ballRadius = 0.1f; // Radius of the bouncing ball
-int windowWidth = 640;     // Windowed mode's width
-int windowHeight = 480;    // Windowed mode's height
-int windowPosX = 50;       // Windowed mode's top-left corner x
-int windowPosY = 50;       // Windowed mode's top-left corner y
+GLfloat ballRadius = 0.05f; // Radius of the bouncing ball
+int windowWidth = 640;      // Windowed mode's width
+int windowHeight = 480;     // Windowed mode's height
+int windowPosX = 50;        // Windowed mode's top-left corner x
+int windowPosY = 50;        // Windowed mode's top-left corner y
 
 /* Initialize OpenGL Graphics */
 void initGL()
@@ -32,9 +34,31 @@ void Timer(int value)
     glutTimerFunc(refreshMills, Timer, 0); // next Timer call milliseconds later
 }
 
-void xCoordinateUpdate(GLfloat xCoordinate)
+// Global variable to store the y-coordinate of the ball
+GLfloat ballY = 0.2f;
+int jumpCount = 0;
+
+// Special keyboard callback function
+void specialKeyboard(int key, int x, int y)
 {
+    // If the Up arrow key is pressed, make the ball jump
+    if (key == GLUT_KEY_UP)
+    {
+        ballY = 0.4f;
+        jumpCount++;
+    }
 }
+
+// Function to draw text on the screen
+void drawText(const char* text, float x, float y)
+{
+    glRasterPos2f(x, y);
+    for (const char* c = text; *c != '\0'; c++)
+    {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
+    }
+}
+
 /* Handler for window-repaint event. Call back when the window first appears and
    whenever the window needs to be re-painted. */
 void display()
@@ -65,28 +89,48 @@ void display()
     glEnd();
 
     glBegin(GL_TRIANGLE_FAN);
-    glColor3f(0.0f, 0.0f, 1.0f); // Blue
-    // glVertex2f(0.0f, 0.0f);      // Center of circle
-    glVertex2f(xCoordinate, xCoordinate); // Center of circle
+    glColor3f(0.0f, 0.0f, 1.0f);    // Blue
+    glVertex2f(xCoordinate, ballY); // Center of circle
     int numSegments = 100;
     GLfloat angle;
     for (int i = 0; i <= numSegments; i++)
     {
         angle = i * 2.0f * PI / numSegments; // 360 deg for all segments
-        glVertex2f(cos(angle) * ballRadius+xCoordinate , sin(angle) * ballRadius+0.2f );
+        glVertex2f(cos(angle) * ballRadius + xCoordinate, sin(angle) * ballRadius + ballY);
     }
+
     glEnd();
+
+    if (ballY > 0.3f)
+    {
+        ballY -= 0.01f;
+    }
 
     glPopMatrix(); // Restore the model-view matrix
 
     glutSwapBuffers(); // Double buffered - swap the front and back buffers
+    
+    // Reset the model-view matrix
+    glLoadIdentity();
+ // Draw the jump count on the screen
+    char scoreText[32];
+    sprintf(scoreText, "Total Score: %d", jumpCount);
 
-    xCoordinate = xCoordinate + 0.1f;
+    // Calculate the width of the text
+    int len = strlen(scoreText);
+    float width = len * 0.01f; // This is an estimate, adjust as needed
+
+    glColor3f(1.0f, 1.0f, 1.0f); // Set text color to white
+    drawText(scoreText, -width / 2, 0.0f); // Draw text at the middle of the screen
+
+    xCoordinate = xCoordinate + 0.05f;
     if (xCoordinate >= 1.0f)
     {
         xCoordinate = -1.3f;
     }
 }
+
+// In your display or update function, make the ball fall back down
 
 /* Handler for window re-size event. Called back when the window first appears and
    whenever the window is re-sized with its new width and height */
@@ -123,10 +167,13 @@ int main(int argc, char **argv)
     glutInitWindowSize(640, 480);                    // Set the window's initial width & height - non-square
     glutInitWindowPosition(50, 50);                  // Position the window's initial top-left corner
     glutCreateWindow("Animation via Idle Function"); // Create window with the given title
-    glutDisplayFunc(display);                        // Register callback handler for window re-paint event
-    glutReshapeFunc(reshape);                        // Register callback handler for window re-size event
-    glutTimerFunc(0, Timer, 0);                      // First timer call immediately
-    initGL();                                        // Our own OpenGL initialization
-    glutMainLoop();                                  // Enter the infinite event-processing loop
+    // In your main function, register the special keyboard callback function
+    glutSpecialFunc(specialKeyboard);
+
+    glutDisplayFunc(display);   // Register callback handler for window re-paint event
+    glutReshapeFunc(reshape);   // Register callback handler for window re-size event
+    glutTimerFunc(0, Timer, 0); // First timer call immediately
+    initGL();                   // Our own OpenGL initialization
+    glutMainLoop();             // Enter the infinite event-processing loop
     return 0;
 }
