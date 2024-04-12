@@ -86,8 +86,8 @@ public:
 int main()
 {
     int n;
-    // cout << "Enter the size of the queue: ";
-    // cin >> n;
+    cout << "Enter the size of the queue: ";
+    cin >> n;
     queue q(5);
     q.push(3);
     q.push(4);
