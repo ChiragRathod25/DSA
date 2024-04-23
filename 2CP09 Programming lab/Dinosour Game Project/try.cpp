@@ -3,38 +3,44 @@
 #include <stdlib.h>
 #include <time.h>
 #include <cmath>
-
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include <GL/glu.h>
-#include <gl/GL.h>
+// #include <gl/GL.h>
 // #include <gl.h>
 
 
-static int animationPeriod = 4;
-static int isAnimate = 0;
+static int animationPeriod = 4; //animation speed
+static int isAnimate = 0;   // flag to check if animation is on or off
 
-const int fact = 3;
-const int x = 80;
+const int fact = 2; //dinosour property scaling factor
+const int x = 10; //offset of dinosour from left
 const double DEG2RAD = 3.1415926535897932384/180;
 
-static double w = 200;
-static int flag = 0;
-static int walk = 0;
-static int x_ = 2500;
-using namespace std;
+static double w = 200;  //width of dinosour body
+static int flag = 0;  //flag to check if dinosour is jumping
+static int walk = 0; //flag to check if dinosour is walking
+static int x_ = 2500; //x position of dinosour
+using namespace std; 
 
 void animate(int value){
     if(isAnimate){
         glutPostRedisplay();
-        glutTimerFunc(animationPeriod, animate, 1);
-    }
+        //  the window's display callback will be invoked at the next iteration of glutMainLoop.
+        
+        glutTimerFunc(animationPeriod, animate, 1); 
+        //This is another OpenGL function that sets a timer. After 'animationPeriod' milliseconds, the specified function 'animate' will be called with the value 1. This is used to create a loop that updates the animation after a certain period of time.
+    } 
 }
 
 void keyInput(unsigned char key , int x, int y){
+    // two integers x and y which typically represent the mouse position at the time the key was pressed.
     switch(key){
+    // This case corresponds to the ESC key (ASCII value 27). If the ESC key is pressed, the program will terminate due to the exit(0)
     case 27:
         exit(0);
+    
+    //This case corresponds to the spacebar key. If the spacebar is pressed, the code inside this case will execute.
     case ' ':
         if(isAnimate) isAnimate = 0;
         else{
@@ -42,16 +48,30 @@ void keyInput(unsigned char key , int x, int y){
             animate(1);
         }
         break;
+
     }
 }
+
+// len is the scaling factor which is used to scale the height of the tree
+// collision function checks if the dinosour has collided with the tree, if it has collided, it returns 1, else it returns 0
+// The function works by checking the distance between the dinosaur and the tree. If the distance is less than or equal to the sum of the widths of the dinosaur and the tree, then a collision might have occurred.
+
+// In this function, 157 + x is the rightmost x-coordinate of the dinosaur,
+// x_ + x + 50 is the leftmost x-coordinate of the tree, 
+//100 + x is the sum of the widths of the dinosaur and the tree,
+// 5 * fact + w is the height of the dinosaur, 
+// 650 * len is the height of the tree.
 bool collision(double len){
+    // Check if the distance between the dinosaur and the tree is less than or equal to the sum of the widths of the dinosaur and the tree
     if(abs(157 + x - (x_ + x + 50)) <= 100 + x){
-        if(5 * fact + w <= 650 * len)return 1;
+        // check if the height of the dinosaur is less than or equal to the height of the tree
+        if(5 * fact + w <= 650 * len) return 1;
         return 0;
     }
     return 0;
 }
 
+// If the up arrow key is pressed and the flag is 0, the flag is set to 1, which indicates that the dinosaur is jumping.
 void specialKeyInput(int key , int x , int y ){
     if( key == GLUT_KEY_UP && flag==0 && w <= 200.0){
         flag  = 1;
@@ -59,6 +79,18 @@ void specialKeyInput(int key , int x , int y ){
     glutPostRedisplay();
 }
 
+
+// This function is used to draw a circle. It takes the following parameters:
+// theta: the angle of the circle
+// inner_radius: the inner radius of the circle
+// outer_radius: the outer radius of the circle
+// x: the x-coordinate of the center of the circle
+// y: the y-coordinate of the center of the circle
+// sin_sign: the sign of the sin function   
+// cos_sign: the sign of the cos function
+// The function uses the glBegin() and glEnd() functions to draw the circle. It uses the glColor3f() function to set the color of the circle. It then uses a for loop to draw the circle by calculating the x and y coordinates of each point on the circle using the sin and cos functions.
+// The function uses the glVertex2f() function to draw each point on the circle.
+// The function uses the glEnd() function to end the drawing of the circle.
 void draw_circle(double theta, double inner_radius, double outer_radius, int x, int y, int sin_sign = 1, int cos_sign = 1){
     glBegin(GL_POINTS);
     glColor3f(0.0/ 255.0, 0.0/ 255.0, 0.0/ 255.0);
@@ -72,17 +104,21 @@ void draw_circle(double theta, double inner_radius, double outer_radius, int x, 
 }
 
 void generate_tree(int x_, double len){
-    int x = 30;
-    glColor3f((0) / 255.0, (0) / 255.0, (0) / 255.0);
-    glBegin(GL_POLYGON);
+    int x = 30; //width of tree
+    glColor3f((0) / 255.0, (0) / 255.0, (0) / 255.0); //color of tree
+    
+    //draw the tree trunk using GL_POLYGON 
+    glBegin(GL_POLYGON); 
         glVertex2f(x_, 250 * len);
         glVertex2f(x_ + x, 250 * len);
         glVertex2f(x_ + x, 650 * len);
         glVertex2f(x_, 650 * len);
     glEnd();
 
+    //draw the tree leaves using draw_circle function
     draw_circle(180.0, 0.0, x / 2, x_ + x / 2, 650 * len);
 
+    //draw the tree leaves using GL_POLYGON, it is used to draw branch of the tree
     glBegin(GL_POLYGON);
         glVertex2f(x_ + x + 25, 400 * len);
         glVertex2f(x_ + x + 50, 400 * len);
@@ -92,6 +128,7 @@ void generate_tree(int x_, double len){
 
     draw_circle(180.0, 0.0, 25.0 / 2, x_ + x + 75.0 / 2, 600 * len);
 
+    // another branch of the tree
     glBegin(GL_POLYGON);
         glVertex2f(x_ - 25, 400 * len);
         glVertex2f(x_ - 50, 400 * len);
@@ -109,30 +146,33 @@ void reset(){
     flag = 0;
     walk = 0;
     x_ = 2500;
-    animationPeriod = 4;
-    isAnimate = 0;
+    animationPeriod = 4;  
+    isAnimate = 0;    
 }
-void render( void ){
-    glClear(GL_COLOR_BUFFER_BIT);
 
-    glPointSize(2);
-    glBegin(GL_POINTS);
+
+void render( void ){
+    glClear(GL_COLOR_BUFFER_BIT); //clear the color buffer
+    glPointSize(2); //set the point size to 2
+    glBegin(GL_POINTS); //begin drawing points
         glColor3f((0) / 255.0, (0) / 255.0, (0) / 255.0);
         for(int i = 0; i < 100; i++){
-            glVertex2f(rand() % 2000, 200);
+            glVertex2f(rand() % 2000, 200); 
             glVertex2f((rand() + 31) % 2000, 150);
         }
     glEnd();
 
     generate_tree(x_, 1.0);
 
-
+    //  to check x_ value :  If it's not, it sets x_ to a random value between 2000 and 2399. This could be used to move the tree across the screen from right to left.
     if(x_>= 0)
         x_ -= 5;
     else{
         x_ = 2000 + rand()%400;
     }
     glLineWidth(2);
+
+    // horizontal line ground
     glBegin(GL_LINES);
         glColor3f((0) / 255.0, (0) / 255.0, (0) / 255.0);
         glVertex2f(0, 250);
@@ -140,6 +180,7 @@ void render( void ){
     glEnd();
 
     glLineWidth(10);
+
     glBegin(GL_LINES);
         glColor3f(0 / 255.0, 0 / 255.0, 0 / 255.0);
 
@@ -221,9 +262,14 @@ void render( void ){
     if(collision(1.0)){
         reset();
     }
+    // If the flag is 1, the dinosaur is jumping. The height of the dinosaur is increased by 20 units.
+    // If the height of the dinosaur is greater than or equal to 200, the flag is set to 0, which indicates that the dinosaur has landed.
+    // If the flag is 0, the dinosaur is walking. The width of the dinosaur is increased by 8 units.
+    // This could be used to animate the character's legs while walking.
     if( w <=200){
         if(walk==-20 )
             walk = 20;
+        // If the character's height w is greater than 200 (meaning the character is in the air), it sets walk to 0, stopping the walking animation.
         else{
             walk = -20;
         }
