@@ -1,0 +1,609 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0053)http://www.cs.princeton.edu/~diego/professional/rply/ -->
+<HTML><HEAD><TITLE>RPly: ANSI C library for PLY file format input and output</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="The RPly Homepage" name=description>
+<META 
+content="open source, C, Library, PLY, file format,&#10;input, output, tools" 
+name=keywords><LINK 
+href="RPly ANSI C library for PLY file format input and output_files/reference.css" 
+type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY><!-- header +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<DIV class=header>
+<HR>
+
+<CENTER>
+<TABLE summary="RPly logo">
+  <TBODY>
+  <TR>
+    <TD align=middle><IMG alt=RPly 
+      src="RPly ANSI C library for PLY file format input and output_files/rply.png" 
+      border=0> </TD></TR>
+  <TR>
+    <TD vAlign=top align=middle>ANSI C Library for PLY file format input and 
+      output </TD></TR></TBODY></TABLE></CENTER>
+<HR>
+</DIV><!-- Introduction +++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<H1>Introduction</H1>
+<P>RPly is a library that lets applications read and write PLY files. The PLY 
+file format is widely used to store geometric information, such as 3D models, 
+but is general enough to be useful for other purposes. </P>
+<P>There are other libraries out there, of course. I tried using them and 
+finally decided to write my own. I tried to write it in such a way that others 
+won't have to do it again and again. Everything that made me unhappy about the 
+existing libraries was eliminated from RPly.</P>
+<P>RPly is easy to use, well documented, small, free, open-source, ANSI C, 
+efficient, and well tested. I will keep supporting it for a while because all my 
+tools use the library for input/output. The highlights are: </P>
+<UL>
+  <LI>A callback mechanism that makes PLY file input straightforward; 
+  <LI>Support for the full range of numeric formats though the user only deals 
+  with doubles; 
+  <LI>Binary (big and little endian) and text modes are fully supported; 
+  <LI>Input and output are buffered for efficiency; 
+  <LI>Available under the <A 
+  href="http://www.opensource.org/licenses/mit-license.html">MIT license</A> for 
+  added freedom. </LI></UL>
+<P>The format was developed at <A 
+href="http://graphics.stanford.edu/data/3Dscanrep/">Stanford University</A> for 
+use with their 3D scanning projects. Greg Turk's PLY library, available from <A 
+href="http://www.cc.gatech.edu/projects/large_models">Georgia Institute of 
+Technology</A>, seems to be the standard reference to the PLY file format, 
+although there are some variations out there. </P>
+<P>Whatever documentation and examples were found, were taken into consideration 
+to create RPly. In theory, since RPly doesn't try to interpret the meaning of 
+the data in a PLY file, it should be able to read any PLY file. In practice, the 
+library works with all PLY files that I could find. </P>
+<H2>Download</H2>
+<P>Version 1.01 of RPly is available for download in source code from <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/rply-1.01.tar.gz">this 
+link</A>. Examples and documentation are packed inside the tar ball. Have fun! 
+</P>
+<P>Copyright © 2003-2005 Diego Nehab. All rights reserved. <BR>Author: <A 
+href="http://www.cs.princeton.edu/~diego">Diego Nehab</A> </P>
+<H2>What's new?</H2>
+<P>The change for version 1.01 is the use of our own buffering code when reading 
+ASCII files. Speedup factor of 5 in Linux, almost no change in Windows. </P>
+<H2>RPly's idea of what a PLY file is </H2>
+<P>A PLY file contains the description of one object. This object is composed by 
+<EM>elements</EM>, each element type being composed by a group of 
+<EM>properties</EM>. The PLY file format specifies a syntax for the description 
+of element types and the properties that compose them, as well as comments and 
+meta-information. </P>
+<P>The element type descriptions come in a header, which is followed by element 
+instances. Element instances come grouped by their type, in the order of 
+declaration. Each element instance is defined by the value of its properties. 
+Properties values also appear in the order of their declaration. Here is a 
+sample PLY file describing a triangle: </P><PRE class=example>ply 
+format ascii 1.0
+comment this is a simple file
+obj_info any data, in one line of free form text
+element vertex 3
+property float x
+property float y
+property float z 
+element face 1
+property list uchar int vertex_indices
+end_header
+-1 0 0
+ 0 1 0
+ 1 0 0 
+3 0 1 2
+</PRE>
+<P>The header goes from the first line to the line marked by 
+<TT>end_header</TT>. The first line contains only <TT>ply\n</TT> and is used to 
+detect whether a file is in PLY format or not. The second line specifies the 
+<TT>format</TT> number (which is always <TT>1.0</TT>) and the storage mode 
+(<TT>ascii</TT>, <TT>binary_big_endian</TT> or <TT>binary_little_endian</TT>). 
+</P>
+<P>Lines that start with <TT>comment</TT> are just comments, of course. Lines 
+that start with <TT>obj_info</TT> contain meta-information about the object. 
+<TT>Comment</TT>s and <TT>obj_info</TT>s are optional and their relative order 
+in the header is irrelevant. </P>
+<P>In the sample PLY file, the first element type is declared with name 
+<TT>vertex</TT>, and on the same line we learn that there will be 3 instances of 
+this element type. The properties following describe what a <TT>vertex</TT> 
+element looks like. Each <TT>vertex</TT> is declared to consist of 3 scalar 
+properties, named <TT>x</TT>, <TT>y</TT> and <TT>z</TT>. Each scalar property is 
+declared to be of type <TT>float</TT>. </P>
+<P>Scalar types can be any of the following: <TT>int8</TT>, <TT>uint8</TT>, 
+<TT>int16</TT>, <TT>uint16</TT>, <TT>int32</TT>, <TT>uint32</TT>, 
+<TT>float32</TT>, <TT>float64</TT>, <TT>char</TT>, <TT>uchar</TT>, 
+<TT>short</TT>, <TT>ushort</TT>, <TT>int</TT>, <TT>uint</TT>, <TT>float</TT>, 
+<TT>double</TT>. They consist of signed and unsigned integer types of sizes 8, 
+16 and 32 bits, as well as floating point types of 32 and 64bits. 
+<P>Next, the <TT>face</TT> element type is declared, of which only 1 instance 
+will be given. This element consists of a <TT>list</TT> property, named 
+<TT>vertex_indices</TT>. Lists are sequences on which the first value, the 
+<EM>length</EM>, gives the number of remaining values. List properties are 
+described by the scalar type of their length field and the scalar type of the 
+remaining fields. In the case of <TT>vertex_indices</TT>, the length field is of 
+type <TT>uchar</TT> and the remaining values are of type <TT>int</TT>. </P>
+<P>Following the header, come the elements, in the order they were declared in 
+the header. First come the 3 elements of type <TT>vertex</TT>, each represented 
+by the value of their properties <TT>x</TT>, <TT>y</TT> and <TT>z</TT>. Then 
+comes the single <TT>face</TT> element, composed by a single list of type 
+<TT>vertex_indices</TT> containing 3 values (0 1 2).</P>
+<H2>How to read a file with RPly </H2>
+<P>Most users that want to read a PLY file already know which elements and 
+properties they are interested at. In the following example, we will implement a 
+simple program that dumps the contents of a PLY file to the terminal, in a 
+different, simpler format that only works for triangles. </P>
+<P>This simple format has a header that gives the number of vertices in the 
+first line and the number of triangles in the second line. Following the header 
+come the vertices, and finally the triangles. Here is the sample code for the 
+program:</P><PRE class=example>#include &lt;stdio.h&gt; 
+#include "rply.h"
+
+static int vertex_cb(p_ply_argument argument) {
+    long eol;
+    ply_get_argument_user_data(argument, NULL, &amp;eol);
+    printf("%g", ply_get_argument_value(argument));
+    if (eol) printf("\n");
+    else printf(" ");
+    return 1;
+}
+
+static int face_cb(p_ply_argument argument) {
+    long length, value_index;
+    ply_get_argument_property(argument, NULL, &amp;length, &amp;value_index);
+    switch (value_index) {
+        case 0:
+        case 1: 
+            printf("%g ", ply_get_argument_value(argument));
+            break;
+        case 2:
+            printf("%g\n", ply_get_argument_value(argument));
+            break;
+        default: 
+            break;
+    }
+    return 1;
+}
+
+int main(void) {
+    long nvertices, ntriangles;
+    p_ply ply = ply_open("input.ply", NULL);
+    if (!ply) return 1;
+    if (!ply_read_header(ply)) return 1;
+    nvertices = ply_set_read_cb(ply, "vertex", "x", vertex_cb, NULL, 0);
+    ply_set_read_cb(ply, "vertex", "y", vertex_cb, NULL, 0);
+    ply_set_read_cb(ply, "vertex", "z", vertex_cb, NULL, 1);
+    ntriangles = ply_set_read_cb(ply, "face", "vertex_indices", face_cb, NULL, 0);
+    printf("%ld\n%ld\n", nvertices, ntriangles);
+    if (!ply_read(ply)) return 1;
+    ply_close(ply);
+    return 0;
+}
+</PRE>
+<P>RPly uses callbacks to pass data to an application. Independent callbacks can 
+be associated with each property of each element. For scalar properties, the 
+callback is invoked once for each instance. For list properties, the callback is 
+invoked first with the number of entries in the instance, and then once for each 
+of the data entries. <EM>This is exactly the order in which the data items 
+appear in the file.</EM></P>
+<P>To keep things simple, values are always passed as <TT>double</TT>, 
+regardless of how they are stored in the file. From its parameters, callbacks 
+can find out exactly which part of the file is being processed (including the 
+real type of the value), plus access custom information provided by the user in 
+the form of a pointer and an integer constant. </P>
+<P>In our example, we start with a call to <TT>ply_open</TT> to open a file for 
+reading. Then we get RPly to parse it's header, with a call to 
+<TT>ply_read_header</TT>. After the header is parsed, RPly knows which element 
+types and properties are available. We then set callbacks for each of the 
+<TT>vertex</TT> element properties and the <TT>face</TT> property (using 
+<TT>ply_set_read_cb</TT>). Finally, we invoke the main RPly reading function, 
+<TT>ply_read</TT>. This function reads all data in the file, passing the data to 
+the appropriate callbacks. After all reading is done, we call <TT>ply_close</TT> 
+to release any resources used by RPly.</P>
+<P>There are some details, of course. <TT>Ply_set_read_cb</TT> returns the 
+number of instances of the target property (which is the same as the number of 
+element instances). This is how the program obtains the number of vertices and 
+faces in the file. </P>
+<P>RPly lets us associate one pointer <EM>and</EM> one integer to each callback. 
+We are free to use either or both to link some context to our callbacks. Our 
+example uses the integer placeholder to tell <TT>vertex_cb</TT> that it has to 
+break the line after the <TT>z</TT> property (notice the last argument of 
+<TT>ply_set_read_cb</TT>).</P>
+<P><TT>Vertex_cb</TT> gets the user data and the property value from it's 
+argument and prints accordingly. The <TT>face_cb</TT> callback is a bit more 
+complicated because lists are more complicated. Since the simple file format 
+only supports triangles, it only prints the first 3 list values, after which it 
+breaks the line. </P>
+<P>The output of the program, as expected, is: </P><PRE class=example>3
+1
+-1 0 0
+0 1 0
+1 0 0
+0 1 2
+</PRE>
+<H2>Writing files with RPly </H2>
+<P>The next example is somewhat more involved. We will create a program that 
+converts our simple PLY file to binary mode. Besides showing how to write a PLY 
+file, this example also illustrates the query functions. We do not know a priori 
+which elements and properties, comments and obj_infos will be in the input file, 
+so we need a way to find out. Although our simple program would work on any PLY 
+file, a better version of this program is available from the RPly distribution. 
+For simplicity, the simple version omits error messages and command line 
+parameter processing. </P>
+<P>In practice, writing a file is even easier than reading one. First we create 
+a file in binary mode, with a call to <TT>ply_create</TT> (notice the argument 
+<TT>PLY_LITTLE_ENDIAN</TT> that gives the storage mode). Then, we define the 
+elements using <TT>ply_add_element</TT>. After each element, we define its 
+properties using <TT>ply_add_scalar_property</TT> or 
+<TT>ply_add_list_property</TT>. When we are done with elements and properties, 
+we add comments and obj_infos. We then write the header with 
+<TT>ply_write_header</TT> and send all data items. The data items are sent one 
+by one, with calls to <TT>ply_write</TT>, <EM>in the same order they are to 
+appear in the file</EM>. Again, to simplify things, this function receives data 
+as <TT>double</TT> and performs the needed conversion. Here is the code for the 
+example: </P><PRE class=example>#include &lt;stdio.h&gt; 
+#include "rply.h"
+
+static int callback(p_ply_argument argument) {
+    void *pdata;
+    /* just pass the value from the input file to the output file */
+    ply_get_argument_user_data(argument, &amp;pdata, NULL);
+    ply_write((p_ply) pdata, ply_get_argument_value(argument));
+    return 1;
+}
+
+static int setup_callbacks(p_ply iply, p_ply oply) {
+    p_ply_element element = NULL;
+    /* iterate over all elements in input file */
+    while ((element = ply_get_next_element(iply, element))) {
+        p_ply_property property = NULL;
+        long ninstances = 0;
+        const char *element_name;
+        ply_get_element_info(element, &amp;element_name, &amp;ninstances);
+        /* add this element to output file */
+        if (!ply_add_element(oply, element_name, ninstances)) return 0;
+        /* iterate over all properties of current element */
+        while ((property = ply_get_next_property(element, property))) {
+            const char *property_name;
+            e_ply_type type, length_type, value_type;
+            ply_get_property_info(property, &amp;property_name, &amp;type, 
+                    &amp;length_type, &amp;value_type);
+            /* setup input callback for this property */
+            if (!ply_set_read_cb(iply, element_name, property_name, callback, 
+                    oply, 0)) return 0;
+            /* add this property to output file */
+            if (!ply_add_property(oply, property_name, type, length_type, 
+                    value_type)) return 0;
+        }
+    }
+    return 1;
+}
+
+int main(void) {
+    const char *value;
+    p_ply iply, oply; 
+    iply = ply_open("input.ply", NULL);
+    if (!iply) return 1; 
+    if (!ply_read_header(iply)) return 1; 
+    oply = ply_create("output.ply", PLY_LITTLE_ENDIAN, NULL);
+    if (!oply) return 1;
+    if (!setup_callbacks(iply, oply)) return 1; 
+    /* pass comments and obj_infos from input to output */
+    value = NULL;
+    while ((value = ply_get_next_comment(iply, value)))
+        if (!ply_add_comment(oply, value)) return 1; 
+    value = NULL;
+    while ((value = ply_get_next_obj_info(iply, value)))
+        if (!ply_add_obj_info(oply, value)) return 1;;
+    /* write output header */
+    if (!ply_write_header(oply)) return 1; 
+    /* read input file generating callbacks that pass data to output file */
+    if (!ply_read(iply)) return 1; 
+    /* close up, we are done */
+    if (!ply_close(iply)) return 1; 
+    if (!ply_close(oply)) return 1;
+    return 0;
+}
+</PRE>
+<P>RPly uses iterators to let the user loop over a PLY file header. A function 
+is used to get the first item of a given class (element, property etc). Passing 
+the last returned item to the same function produces the next item, until there 
+are no more items. Examples of iterator use can be seen in the <TT>main</TT> 
+function, which uses them to loop over comments and obj_infos, and in the 
+<TT>setup_callbacks</TT> function, which loops over elements and properties. 
+</P>
+<P>In the <TT>setup_callbacks</TT> function, for each element in the input, an 
+equivalent element is defined in the output. For each property in each element, 
+an equivalent property is defined in the output. Notice that the same callback 
+is specified for all properties. It is given the output PLY handle as the 
+context pointer. Each time it is called, it passes the received value to 
+<TT>ply_write</TT> on the output handle. It is as simple as that. </P>
+<H1>Reference Manual</H1><!-- ply_open ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_open>p_ply <B>ply_open</B>(const char *name, p_ply_error_cb 
+error_cb) </P>
+<P class=description>Opens a PLY file for reading, checks if it is a valid PLY 
+file and returns a handle to it. </P>
+<P class=arguments><TT>Name</TT> is the file name, and <TT>error_cb</TT> is a 
+function to be called when an error is found. If <TT>error_cb</TT> is NULL, the 
+default error callback is used. It prints a message to the standard error 
+stream. </P>
+<P class=return>Returns a handle to the file or NULL on error. </P>
+<P class=note>Note: <TT>Error_cb</TT> is of type <TT>void 
+(*p_ply_error_cb)(const char *message)</TT> </P><!-- ply_read_header +++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_read_header>int <B>ply_read_header</B>(p_ply ply) </P>
+<P class=description>Reads and parses the header of a PLY file. After a call to 
+this function, the query functions <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_get_next_element"><TT>ply_get_next_element</TT></A>, 
+<A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_get_next_property"><TT>ply_get_next_property</TT></A>, 
+<A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_get_next_comment"><TT>ply_get_next_comment</TT></A>, 
+and <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_get_next_obj_info"><TT>ply_get_next_obj_info</TT></A> 
+can be called. Callbacks can also be set with the <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_set_read_cb"><TT>ply_set_read_cb</TT></A> 
+function. </P>
+<P class=arguments><TT>Ply</TT> is a handle returned by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_open"><TT>ply_open</TT></A>. 
+</P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P><!-- ply_set_read_cb +++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_set_read_cb>long <B>ply_set_read_cb</B>(<BR>&nbsp;&nbsp; 
+p_ply ply,<BR>&nbsp;&nbsp; const char *element_name,<BR>&nbsp;&nbsp; const char 
+*property_name,<BR>&nbsp;&nbsp; p_ply_read_cb read_cb,<BR>&nbsp;&nbsp; void 
+*pdata,<BR>&nbsp;&nbsp; long idata<BR>) </P>
+<P class=description>Sets up the callback to be invoked when the value of a 
+property is read. </P>
+<P class=arguments><TT>Ply</TT> is a handle returned by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_open"><TT>ply_open</TT></A>. 
+<TT>Element_name</TT> and <TT>property_name</TT> are the names of the element 
+and property of interest. <TT>Read_cb</TT> is the callback function. 
+<TT>Pdata</TT> and <TT>idata</TT> are user data to be passed to the callback 
+function. </P>
+<P class=return>Returns the number of instances of the element of interest. </P>
+<P class=note>Note: <TT>Read_cb</TT> is of type <TT>int 
+(*p_ply_read_cb)(p_ply_argument argument)</TT>. The callback should return 1 to 
+continue the reading process, or return 0 to abort. <!-- ply_get_argument_element ++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_get_argument_element>int 
+<B>ply_get_argument_element</B>(<BR>&nbsp;&nbsp; p_ply_argument 
+argument,<BR>&nbsp;&nbsp; p_ply_element *element,<BR>&nbsp;&nbsp; long 
+*instance_index<BR>) </P>
+<P class=description>Retrieves element information from the callback argument. 
+</P>
+<P class=arguments><TT>Argument</TT> is the handle passed to the callback. 
+<TT>Element</TT> receives a handle to the element originating the callback. 
+<TT>Instance_index</TT> receives the index of the instance of the element being 
+read. <TT>Element</TT> and <TT>instance_index</TT> can be NULL. </P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P>
+<P class=note>Note: further information can be obtained from <TT>element</TT> 
+with a call to <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_get_element_info">ply_get_element_info</A>. 
+</P><!-- ply_get_argument_property +++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_get_argument_property>int 
+<B>ply_get_argument_property</B>(<BR>&nbsp;&nbsp; p_ply_argument 
+argument,<BR>&nbsp;&nbsp; p_ply_property *property,<BR>&nbsp;&nbsp; long 
+*length,<BR>&nbsp;&nbsp; long *value_index<BR>) </P>
+<P class=description>Retrieves property information from the callback argument. 
+</P>
+<P class=arguments><TT>Argument</TT> is the handle passed to the callback. 
+<TT>Property</TT> receives a handle to the property originating the callback. 
+<TT>Length</TT> receives the number of values in the list property (1 for scalar 
+properties). <TT>Value_index</TT> receives the index of the current property 
+entry (0 for scalar properties, -1 for the first value of a list property, the 
+one that gives the number of entries). <TT>Property</TT>, <TT>length</TT> and 
+<TT>value_index</TT> can be NULL. </P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P>
+<P class=note>Note: further information can be obtained from <TT>property</TT> 
+with a call to <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_get_property_info">ply_get_property_info</A>. 
+</P><!-- ply_get_argument_user_data +++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_get_argument_user_data>int 
+<B>ply_get_argument_user_data</B>(p_ply_argument argument, void *pdata, long 
+*idata) </P>
+<P class=description>Retrieves the user data from the callback argument. </P>
+<P class=arguments><TT>Argument</TT> is the handle passed to the callback. 
+<TT>Pdata</TT> receives the user data pointer. <TT>Idata</TT> receives the user 
+data integer. <TT>Pdata</TT> and <TT>idata</TT> can be NULL. </P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P><!-- ply_get_argument_value +++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_get_argument_value>double 
+<B>ply_get_argument_value</B>(p_ply_argument argument) </P>
+<P class=description>Retrieves the property value from the callback argument. 
+</P>
+<P class=arguments><TT>Argument</TT> is the handle passed to the callback. </P>
+<P class=return>Returns the property value. </P><!-- ply_read +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_read>int <B>ply_read</B>(p_ply ply) </P>
+<P class=description>Reads all data in file, calling appropriate callbacks. </P>
+<P class=arguments><TT>Ply</TT> is a handle returned by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_open"><TT>ply_open</TT></A>. 
+</P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P><!-- ply_get_next_element ++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_get_next_element>p_ply_element 
+<B>ply_get_next_element</B>(p_ply ply, p_ply_element last) </P>
+<P class=description>Iterates over all elements on the header of a PLY file. 
+</P>
+<P class=arguments><TT>Ply</TT> is a handle returned by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_open"><TT>ply_open</TT></A>. 
+<A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_read_header"><TT>Ply_read_header</TT></A> 
+must have been called on the handle otherwise no elements will be found. 
+<TT>Last</TT> is NULL to retrieve the first element, and an element to retrieve 
+the next element. </P>
+<P class=return>Returns the next element, or NULL if no more elements. </P>
+<P class=note>Note: further information can be obtained from an element with a 
+call to <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_get_element_info">ply_get_element_info</A>. 
+</P><!-- ply_get_next_property +++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_get_next_property>p_ply_property 
+<B>ply_get_next_property</B>(p_ply_element element, p_ply_property last) </P>
+<P class=description>Iterates over all properties of an element. </P>
+<P class=arguments><TT>Element</TT> is an element handle. <TT>Last</TT> is NULL 
+to retrieve the first property, and a property to retrieve the next property. 
+</P>
+<P class=return>Returns the next property, or NULL if no more properties. </P>
+<P class=note>Note: further information can be obtained from a property with a 
+call to <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_get_property_info">ply_get_property_info</A>. 
+</P><!-- ply_get_next_comment ++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_get_next_comment>const char 
+*<B>ply_get_next_comment</B>(p_ply ply, const char *last) </P>
+<P class=description>Iterates over all comments on the header of a PLY file. 
+</P>
+<P class=arguments><TT>Ply</TT> is a handle returned by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_open"><TT>ply_open</TT></A>. 
+<A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_read_header"><TT>Ply_read_header</TT></A> 
+must have been called on the handle otherwise no comments will be found. 
+<TT>Last</TT> is NULL to retrieve the first comment, and a comment to retrieve 
+the next comment. </P>
+<P class=return>Returns the next comment, or NULL if no more comments. </P><!-- ply_get_next_obj_info +++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_get_next_obj_info>const char 
+*<B>ply_get_next_obj_info</B>(p_ply ply, const char *last) </P>
+<P class=description>Iterates over all obj_infos on the header of a PLY file. 
+</P>
+<P class=arguments><TT>Ply</TT> is a handle returned by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_open"><TT>ply_open</TT></A>. 
+<A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_read_header"><TT>Ply_read_header</TT></A> 
+must have been called on the handle otherwise no obj_infos will be found. 
+<TT>Last</TT> is NULL to retrieve the first obj_info, and a obj_info to retrieve 
+the next obj_info. </P>
+<P class=return>Returns the next obj_info, or NULL if no more obj_infos. </P><!-- ply_get_element_info ++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_get_element_info>int 
+<B>ply_get_element_info</B>(p_ply_element element, const char** name, long 
+*ninstances) </P>
+<P class=description>Retrieves information from an element handle. </P>
+<P class=arguments><TT>Element</TT> is the handle of the element of interest. 
+<TT>Name</TT> receives the internal copy of the element name. 
+<TT>Ninstances</TT> receives the number of instances of this element in the 
+file. Both <TT>name</TT> and <TT>ninstances</TT> can be NULL. </P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P><!-- ply_get_property_info +++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_get_property_info>int 
+<B>ply_get_property_info</B>(<BR>&nbsp;&nbsp; p_ply_property 
+property,<BR>&nbsp;&nbsp; const char** name,<BR>&nbsp;&nbsp; e_ply_type 
+*type,<BR>&nbsp;&nbsp; e_ply_type *length_type,<BR>&nbsp;&nbsp; e_ply_type 
+*value_type<BR>) </P>
+<P class=description>Retrieves information from a property handle. </P>
+<P class=arguments><TT>Property</TT> is the handle of the property of interest. 
+<TT>Name</TT> receives the internal copy of the property name. <TT>Type</TT> 
+receives the property type. <TT>Length_type</TT> receives the scalar type of the 
+first entry in a list property (the one that gives the number of entries). 
+<TT>Value_type</TT> receives the scalar type of the remaining list entries. 
+<TT>Name</TT>, <TT>type</TT>, <TT>length_type</TT>, and <TT>value_type</TT> can 
+be NULL. </P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P>
+<P class=note>Note: <TT>Length_type</TT> and <TT>value_type</TT> can receive any 
+of the constants for scalar types defined in <TT>e_ply_type</TT>. <TT>Type</TT> 
+can, in addition, be <TT>PLY_LIST</TT>, in which case the property is a list 
+property and the fields <TT>length_type</TT> and <TT>value_type</TT> become 
+meaningful. </P><!-- ply_create ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_create>p_ply <B>ply_create</B>(const char *name, 
+e_ply_storage_mode storage_mode, p_ply_error_cb error_cb) </P>
+<P class=description>Creates a PLY file for writing. </P>
+<P class=arguments><TT>Name</TT> is the file name, <TT>storage_mode</TT> is the 
+file storage mode (<TT>PLY_ASCII</TT>, <TT>PLY_LITTLE_ENDIAN</TT> or 
+<TT>PLY_BIG_ENDIAN</TT>). <TT>Error_cb</TT> is a function to be called when an 
+error is found. If <TT>error_cb</TT> is NULL, the default error callback is 
+used. It prints a message to the standard error stream. </P>
+<P class=return>Returns a handle to the file or NULL on error. </P>
+<P class=note>Note: <TT>Error_cb</TT> is of type <TT>void 
+(*p_ply_error_cb)(const char *message)</TT> </P><!-- ply_add_element +++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_add_element>int <B>ply_add_element</B>(p_ply ply, const 
+char *name, long ninstances) </P>
+<P class=description>Adds a new element to the ply file. </P>
+<P class=arguments><TT>Ply</TT> is a handle returned by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_create"><TT>ply_create</TT></A>, 
+<TT>name</TT> is the element name and <TT>ninstances</TT> is the number of 
+instances of this element that will be written to the file. </P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P><!-- ply_add_property ++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_add_property>int <B>ply_add_property</B>(<BR>&nbsp;&nbsp; 
+p_ply ply,<BR>&nbsp;&nbsp; const char *name,<BR>&nbsp;&nbsp; e_ply_type 
+type,<BR>&nbsp;&nbsp; e_ply_type length_type,<BR>&nbsp;&nbsp; e_ply_type 
+value_type<BR>) </P>
+<P class=description>Adds a new property to the last element added to the ply 
+file. </P>
+<P class=arguments><TT>Ply</TT> is a handle returned by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_create"><TT>ply_create</TT></A> 
+and <TT>name</TT> is the property name. <TT>Type</TT> is the property type. 
+<TT>Length_type</TT> is the scalar type of the first entry in a list property 
+(the one that gives the number of entries). <TT>Value_type</TT> is the scalar 
+type of the remaining list entries. If <TT>type</TT> is not <TT>PLY_LIST</TT>, 
+<TT>length_type</TT> and <TT>value_type</TT> are ignored. </P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P>
+<P class=note>Note: <TT>Length_type</TT> and <TT>value_type</TT> can be any of 
+the constants for scalar types defined in <TT>e_ply_type</TT>. <TT>Type</TT> 
+can, in addition, be <TT>PLY_LIST</TT>, in which case the property is a list 
+property and the fields <TT>length_type</TT> and <TT>value_type</TT> become 
+meaningful. </P><!-- ply_add_list_property ++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_add_list_property>int 
+<B>ply_add_list_property</B>(<BR>&nbsp;&nbsp; p_ply ply,<BR>&nbsp;&nbsp; const 
+char *name,<BR>&nbsp;&nbsp; e_ply_type length_type,<BR>&nbsp;&nbsp; e_ply_type 
+value_type<BR>) </P>
+<P class=description>Same as <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_add_property"><TT>ply_add_property</TT></A> 
+if <TT>type</TT> is <TT>PLY_LIST</TT>. </P><!-- ply_add_scalar_property +++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_add_scalar_property>int 
+<B>ply_add_scalar_property</B>(p_ply ply, const char *name, e_ply_type type) 
+</P>
+<P class=description>Same as <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_add_property"><TT>ply_add_property</TT></A> 
+if <TT>type</TT> is <EM>not</EM> <TT>PLY_LIST</TT>. </P><!-- ply_add_comment +++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_add_comment>int <B>ply_add_comment</B>(p_ply ply, const 
+char *comment); </P>
+<P class=description>Adds a comment to a PLY file. </P>
+<P class=arguments><TT>Ply</TT> is a handle returned by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_create"><TT>ply_create</TT></A> 
+and <TT>comment</TT> is the comment text. </P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P><!-- ply_add_obj_info ++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_add_obj_info>int <B>ply_add_obj_info</B>(p_ply ply, const 
+char *obj_info); </P>
+<P class=description>Adds a obj_info to a PLY file. </P>
+<P class=arguments><TT>Ply</TT> is a handle returned by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_create"><TT>ply_create</TT></A> 
+and <TT>obj_info</TT> is the obj_info text. </P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P><!-- ply_write_header ++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_write_header>int <B>ply_write_header</B>(p_ply ply); </P>
+<P class=description>Writes the PLY file header to disk, after all elements, 
+properties, comments and obj_infos have been added to the handle. </P>
+<P class=arguments><TT>Ply</TT> is a handle returned by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_create"><TT>ply_create</TT></A> 
+and <TT>comment</TT> is the comment text. </P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P><!-- ply_write +++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_write>int <B>ply_write</B>(p_ply ply, double value); </P>
+<P class=description>Passes a value to be stored in the PLY file. Values must be 
+passed in the order they will appear in the file. </P>
+<P class=arguments><TT>Ply</TT> is a handle returned by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_create"><TT>ply_create</TT></A> 
+and <TT>value</TT> is the value to be stored. For simplicity, values are always 
+passed as <TT>double</TT> and conversion is performed as needed. </P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P><!-- ply_close +++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<P class=name id=ply_close>int <B>ply_close</B>(p_ply ply); </P>
+<P class=description>Closes the handle and ensures that all resources have been 
+freed and data have been written. </P>
+<P class=arguments><TT>Ply</TT> is a handle returned by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_create"><TT>ply_create</TT></A> 
+or by <A 
+href="http://www.cs.princeton.edu/~diego/professional/rply/#ply_open"><TT>ply_open</TT></A>. 
+</P>
+<P class=return>Returns 1 in case of success, 0 otherwise. </P><!-- footer ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<DIV class=footer>
+<HR>
+
+<CENTER>
+<P><SMALL>Last modified by Diego Nehab on <BR>Fri Jul 16 15:23:01 EDT 2004 
+</SMALL><BR><!-- CQ Counter code start -->
+<SCRIPT language=javascript type=text/javascript><!--
+_d=document; _n=navigator; _t=new Date(); function t() { _d.write(
+"<img src=\"http://us.2.cqcounter.com/cgi-bin/c?_id=rply&_z=2&_r="+
+_r+"&_c="+_c+"&_j="+_j+"&_t="+(_t.getTimezoneOffset())+"&_k="+_k+
+"&_l="+escape(_d.referrer)+"\" width=70 height=15 "+
+"border=0>");} _c="0"; _r="0"; _j="U"; _k="U"; _d.cookie="_c=y";
+_d.cookie.length>0?_k="Y":_k="N";//--></SCRIPT>
+
+<SCRIPT language=javascript1.2 type=text/javascript><!--
+_n.javaEnabled()?_j="Y":_j="N";_b=screen; _r=_b.width;
+_n.appName!="Netscape"?_c=_b.colorDepth : _c=_b.pixelDepth;//--></SCRIPT>
+<A title="Free Counter" href="http://cqcounter.com/?_id=rply&amp;_lo=us2" 
+target=_top>
+<SCRIPT language=javascript type=text/javascript><!--
+t(); //--></SCRIPT>
+</A><NOSCRIPT><IMG height=15 alt=Counter 
+src="RPly ANSI C library for PLY file format input and output_files/c.gif" 
+width=70 border=0><BR><A title="Web Counter" href="http://cqcounter.com/">Hit 
+Counter</A></NOSCRIPT> 
+<!-- CQ Counter code end --></P></CENTER></DIV></BODY></HTML>
