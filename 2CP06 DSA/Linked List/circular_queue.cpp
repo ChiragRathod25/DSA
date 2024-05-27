@@ -43,7 +43,7 @@ public:
         {   
             arr[++rear] = n;
         }
-        // cout << "Push : Value : " <<n<<" : "<<arr[rear] << "front : " << front << "  "<< "rear : " << rear << endl;
+        cout << "Push : Value : " <<n<<" : "<<arr[rear] << "front : " << front << "  "<< "rear : " << rear << endl;
     }
     void pop()
     {   
@@ -58,8 +58,8 @@ public:
         else {
             front++;
         }
-        // cout<<"POP  Method Executed"<<endl;
-        // cout << "front : " << front << "  "<< "rear : " << rear << endl;
+        cout<<"POP  Method Executed"<<endl;
+        cout << "front : " << front << "  "<< "rear : " << rear << endl;
     }
 
     void display()
@@ -89,21 +89,15 @@ int main()
     cout << "Enter the size of the queue: ";
     cin >> n;
     queue q(5);
+
     q.push(3);
     q.push(4);
+    q.pop();
+    q.pop();
     q.push(31);
     q.push(41);
     q.push(12);
     q.push(2);
-    q.display();
-    q.pop();
-    q.display();
-    q.push(6);
-    q.push(16);
-    q.display(); 
-    q.pop();
-    q.display();
-    q.push(16);
     q.display();
     return 0;
 }
