@@ -1,0 +1,12 @@
+Types of analysis
+algo analysis -> 3 methods -> substition, recurrance tree and master's theorem
+2 types of algo analysis -> posterior and priori
+Asymptotic notation -> Big O, Omega and theta + small o and omega(w), upperbound-lowerbound with graphs
+
+paradimes -> greedy algo 
+graphs -> adjancy matrix,adjancy list
+dictionary representation, BFS, DFS , disjoint set, 
+Spanning tree -> (i) kruskal (ii) prims   
+problems -> traveling salesman, knapsack, making changes 
+
+codes to be done -> knapsack, making change, DFS, BFS, 
